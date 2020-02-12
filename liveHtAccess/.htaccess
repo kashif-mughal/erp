@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteBase /sandbox/erp/
+RewriteCond $1 !^(index\.php|my-assets|assets|robots\.txt)
+RewriteRule ^(.*)$ index.php/$1 [L]
