@@ -337,9 +337,9 @@ class Products extends CI_Model {
         return false;
     }
     public function update_cache_file(){
-        $query = $this->db->get();
+        $query = $this->db->query("SELECT * from product_information");
         foreach ($query->result() as $row) {
-            $json_product[] = array('label' => $row->product_name . "-(". $row->product_id .")", 'value' => $row->product_id, 'sub_product' => $row->sub_product);
+            $json_product[] = array('label' => $row->product_name . "-(". $row->product_id .")", 'value' => $row->product_id, 'sub_product' => $row->sub_product, 'product_uuid' => $row->product_uuid);
         }
         $cache_file = './my-assets/js/admin_js/json/product.json';
         $productList = json_encode($json_product);

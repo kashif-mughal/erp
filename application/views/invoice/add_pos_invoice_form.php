@@ -115,9 +115,9 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group row">
-                                    <label for="add_item" class="col-sm-4 col-form-label"><?php echo display('barcode') ?> <i class="text-danger">*</i></label>
+                                    <label for="add_item" class="col-sm-4 col-form-label"><?php echo display('barcode') ?> </label>
                                     <div class="col-sm-8">
-                                        <input type="text" name="product_name" class="form-control" placeholder='<?php echo display('barcode_qrcode_scan_here') ?>' id="add_item" autocomplete='off' tabindex="1">
+                                        <input type="text" autofocus name="product_name" class="form-control" placeholder='<?php echo display('barcode_qrcode_scan_here') ?>' id="add_item" autocomplete='off' tabindex="1">
                                         <input type="hidden" id="product_value" name="">
                                     </div>
                                 </div>
@@ -126,7 +126,7 @@
                                 <div class="form-group row">
                                     <label for="delivery_challan" class="col-sm-4 col-form-label">Delivery Challan  <i class="text-danger">*</i></label>
                                     <div class="col-sm-8">
-                                        <input class="form-control" type="text" required name="delivery_challan" id="delivery_challan"  tabindex="7" />
+                                        <input class="form-control" type="text" required name="delivery_challan" id="delivery_challan"  tabindex="2" />
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +140,19 @@
                                         date_default_timezone_set("Asia/Dhaka");
                                         $date = date('Y-m-d');
                                         ?>
-                                        <input class="form-control" type="text" size="50" id="invoice_date" name="invoice_date" required value="<?php echo $date; ?>" tabindex="2" />
+                                        <input class="form-control" type="text" size="50" id="invoice_date" name="invoice_date" required value="<?php echo $date; ?>" tabindex="3" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group row">
+                                    <label for="vehicle" class="col-sm-4 col-form-label">Vehicle  <i class="text-danger">*</i></label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" required id="vehicle" name="vehicle" tabindex="4">
+                                            <option value="Bike">Bike</option>
+                                            <option value="Rikshaw">Rikshaw</option>
+                                            <option value="Van">Van</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -154,7 +166,7 @@
                                         display('customer_name')
                                         ?> <i class="text-danger">*</i></label>
                                     <div class="col-sm-6">
-                                        <select class='form-control' tabindex="3" name="customer_id" required id="customer_id">
+                                        <select class='form-control' tabindex="5" name="customer_id" required id="customer_id">
                                             {customer_list}
                                                 <option value="{customer_id}">{customer_name}</option>
                                             {/customer_list}
@@ -168,7 +180,7 @@
                                     }
                                     ?>
                                     <div  class=" col-sm-3">
-                                        <input id="myRadioButton_1" type="button" onClick="active_customer('payment_from_1')" id="myRadioButton_1" class="btn btn-success checkbox_account ac" name="customer_confirm" checked="checked" value="<?php echo display('new_customer') ?>" tabindex="4">
+                                        <input id="myRadioButton_1" type="button" onClick="active_customer('payment_from_1')" id="myRadioButton_1" class="btn btn-success checkbox_account ac" name="customer_confirm" checked="checked" value="<?php echo display('new_customer') ?>" tabindex="6">
                                     </div>
                                 </div>
                             </div>
@@ -177,7 +189,7 @@
                                 <div class="form-group row">
                                     <label for="customer_name_others" class="col-sm-3 col-form-label"><?php echo display('payee_name') ?> <i class="text-danger">*</i></label>
                                     <div class="col-sm-6">
-                                        <input  autofill="off" type="text"  size="100" name="customer_name_others" placeholder='<?php echo display('payee_name') ?>' id="customer_name_others" class="form-control" tabindex="5"/>
+                                        <input  autofill="off" type="text"  size="100" name="customer_name_others" placeholder='<?php echo display('payee_name') ?>' id="customer_name_others" class="form-control" tabindex="7"/>
                                     </div>
 
                                     <div  class="col-sm-3">
@@ -188,7 +200,7 @@
                                 <div class="form-group row">
                                     <label for="customer_name_others_address" class="col-sm-3 col-form-label"><?php echo display('address') ?></label>
                                     <div class="col-sm-6">
-                                        <input type="text"  size="100" name="customer_name_others_address" class=" form-control" placeholder='<?php echo display('address') ?>' id="customer_name_others_address" tabindex="6"/>
+                                        <input type="text"  size="100" name="customer_name_others_address" class=" form-control" placeholder='<?php echo display('address') ?>' id="customer_name_others_address" tabindex="8"/>
                                     </div>
                                 </div> 
                             </div>
@@ -247,21 +259,21 @@
                                 </tr>
                                 <tr>
                                     <td align="center">
-                                        <input type="button" id="add_invoice_item" class="btn btn-info" name="add-invoice-item"  onClick="addInputField('addinvoiceItem');" value="<?php echo display('add_new_item') ?>" tabindex="12"/>
+                                        <input type="button" id="add_invoice_item" class="btn btn-info" name="add-invoice-item"  onClick="addInputField('addinvoiceItem');" value="<?php echo display('add_new_item') ?>" tabindex="9"/>
 
                                         <input type="hidden" name="baseUrl" class="baseUrl" value="<?php echo base_url(); ?>"/>
                                     </td>
                                     <td style="text-align:right;" colspan="5"><b><?php echo display('paid_ammount') ?>:</b></td>
                                     <td class="text-right">
                                         <input type="text" id="paidAmount" 
-                                               onkeyup="invoice_paidamount();" class="form-control text-right" name="paid_amount" placeholder="0.00" tabindex="13"/>
+                                               onkeyup="invoice_paidamount();" class="form-control text-right" name="paid_amount" placeholder="0.00" tabindex="10"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="center">
-                                        <input type="button" id="full_paid_tab" class="btn btn-warning" value="<?php echo display('full_paid') ?>" tabindex="14" onClick="full_paid()"/>
+                                        <input type="button" id="full_paid_tab" class="btn btn-warning" value="<?php echo display('full_paid') ?>" tabindex="11" onClick="full_paid()"/>
 
-                                        <input type="submit" id="add_invoice" class="btn btn-success" name="add-invoice" value="<?php echo display('submit') ?>" tabindex="15"/>
+                                        <input type="submit" id="add_invoice" class="btn btn-success" name="add-invoice" value="<?php echo display('submit') ?>" tabindex="12"/>
                                     </td>
 
                                     <td style="text-align:right;" colspan="5"><b><?php echo display('due') ?>:</b></td>

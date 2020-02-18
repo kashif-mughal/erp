@@ -104,7 +104,6 @@ class Backup_restore extends CI_Controller {
         );
 
         $backup = $this->dbutil->backup($prefs);
-
         if (write_file($this->savePath . $this->fileName, $backup)) {
             return true;
         } else {

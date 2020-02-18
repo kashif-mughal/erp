@@ -49,12 +49,23 @@ APchange = function(event, ui){
 
 			select: function(event, ui) {
 
+				var elems = $('.product_uuid');
+				for(counter = 0; counter < elems.length; counter++){
+					if(elems[counter].value == ui.item.product_uuid)
+					{
+						event.preventDefault();
+						$(this).val("");
+						alert('This product already exists');
+						return false;
+					}
+				}
+
 				$(this).parent().find(".autocomplete_hidden_value").val(ui.item.value);
 
+				$(this).parent().find(".product_uuid").val(ui.item.product_uuid);
+
 				$(this).val(ui.item.label);
-
 				
-
 				var id=ui.item.value;
 
 				var dataString = 'product_id='+ id;

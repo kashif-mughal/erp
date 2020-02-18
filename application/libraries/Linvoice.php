@@ -674,7 +674,9 @@ class Linvoice {
 
             'discount_type' => $currency_details[0]['discount_type'],
 
-            'delivery_challan' => $invoice_detail[0]['delivery_challan']
+            'delivery_challan' => $invoice_detail[0]['delivery_challan'],
+
+            'vehicle' => $invoice_detail[0]['vehicle']
 
         );
 

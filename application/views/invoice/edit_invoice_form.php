@@ -60,9 +60,9 @@
                         <div class="row">
                             <div class="col-sm-6" id="payment_from_1">
                                 <div class="form-group row">
-                                    <label for="product_name" class="col-sm-4 col-form-label"><?php echo display('customer_name') ?> <i class="text-danger">*</i></label>
+                                    <label for="customer_name" class="col-sm-4 col-form-label"><?php echo display('customer_name') ?> <i class="text-danger">*</i></label>
                                     <div class="col-sm-8">
-                                        <input type="text" name="customer_name" value="{customer_name}" class="form-control customerSelection" placeholder='<?php echo display('customer_name') ?>' required id="customer_name" tabindex="1">
+                                        <input type="text" name="customer_name" value="{customer_name}" class="form-control customerSelection" placeholder='<?php echo display('customer_name') ?>' required id="customer_name" autofocus tabindex="1">
 
                                         <input type="hidden" class="customer_hidden_value" name="customer_id" value="{customer_id}" id="SchoolHiddenId"/>
                                     </div>
@@ -81,9 +81,21 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group row">
-                                    <label for="product_name" class="col-sm-4 col-form-label"><?php echo display('date') ?> <i class="text-danger">*</i></label>
+                                    <label for="date" class="col-sm-4 col-form-label"><?php echo display('date') ?> <i class="text-danger">*</i></label>
                                     <div class="col-sm-8">
                                         <input type="text" tabindex="3" class="form-control datepicker" name="invoice_date" value="{date}"  required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group row">
+                                    <label for="vehicle" class="col-sm-4 col-form-label">Vehicle  <i class="text-danger">*</i></label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" vehicle-value={vehicle} required id="vehicle" name="vehicle" tabindex="4">
+                                            <option value="Bike">Bike</option>
+                                            <option value="Rikshaw">Rikshaw</option>
+                                            <option value="Van">Van</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -114,23 +126,23 @@
                                     {invoice_all_data}
                                     <tr>
                                         <td class="" style="width: 200px;">
-                                            <input type="text" name="product_name" onclick="invoice_productList({sl});" value="{product_name}-({product_model})" class="form-control productSelection" required placeholder='<?php echo display('product_name') ?>' id="product_names" tabindex="3">
-
+                                            <input type="text" name="product_name" onclick="invoice_productList({sl});" value="{product_name}-({product_model})" class="form-control productSelection" required placeholder='<?php echo display('product_name') ?>' id="product_names" tabindex="5">
+                                            <input type='hidden' class='product_uuid' name='product_uuid[]' id='product_uuid[]' value="{product_uuid}">
                                             <input type="hidden" class="product_id_{sl} autocomplete_hidden_value" name="product_id[]" value="{product_id}" id="SchoolHiddenId"/>
                                         </td>
                                         <td>
                                             <input type="text" name="available_quantity[]" class="form-control text-right available_quantity_1" value="0" readonly="" />
                                         </td>
                                         <td>
-                                            <input type="text" name="product_quantity[]" onkeyup="quantity_calculate({sl});" onchange="quantity_calculate({sl});" value="{quantity}" class="total_qntt_{sl} form-control text-right" id="total_qntt_{sl}" min="0" placeholder="0.00" tabindex="4" required="required"/>
+                                            <input type="text" name="product_quantity[]" onkeyup="quantity_calculate({sl});" onchange="quantity_calculate({sl});" value="{quantity}" class="total_qntt_{sl} form-control text-right" id="total_qntt_{sl}" min="0" placeholder="0.00" tabindex="6" required="required"/>
                                         </td>
 
                                         <td>
-                                            <input type="text" name="product_rate[]" onkeyup="quantity_calculate({sl});" onchange="quantity_calculate({sl});" value="{rate}" id="price_item_{sl}" class="price_item{sl} form-control text-right" min="0" tabindex="5" required="" placeholder="0.00"/>
+                                            <input type="text" name="product_rate[]" onkeyup="quantity_calculate({sl});" onkeydown='change_rate(event);' onchange="quantity_calculate({sl});" value="{rate}" id="price_item_{sl}" class="price_item{sl} form-control text-right" min="0" required="" placeholder="0.00"/>
                                         </td>
                                         <!-- Discount -->
                                         <td>
-                                            <input type="text" name="discount[]" onkeyup="quantity_calculate({sl});"  onchange="quantity_calculate({sl});" id="discount_{sl}" class="form-control text-right" placeholder="0.00" value="{discount_per}" min="0" tabindex="6"/>
+                                            <input type="text" name="discount[]" onkeyup="quantity_calculate({sl});" onkeydown="change_discount(event);" onchange="quantity_calculate({sl});" id="discount_{sl}" class="form-control text-right" placeholder="0.00" value="{discount_per}" min="0"/>
 
                                             <input type="hidden" value="<?php echo $discount_type ?>" name="discount_type" id="discount_type_{sl}">
                                         </td>
@@ -153,7 +165,7 @@
                                             <input type="hidden" id="all_discount_{sl}" class="total_discount" value="{discount}" name="discount_amount[]" />
                                             <!-- Discount calculate end -->
 
-                                            <button style="text-align: right;" class="btn btn-danger" type="button" value="<?php echo display('delete') ?>" onclick="deleteRow(this)" tabindex="7"><?php echo display('delete') ?></button>
+                                            <button style="text-align: right;" class="btn btn-danger" type="button" value="<?php echo display('delete') ?>" onclick="deleteRow(this)" ><?php echo display('delete') ?></button>
                                         </td>
                                     </tr>
                                     {/invoice_all_data}
@@ -194,20 +206,20 @@
                                         <input type="hidden" name="baseUrl" class="baseUrl" value="<?php echo base_url(); ?>"/>
                                         <input type="hidden" name="invoice_id" id="invoice_id" value="{invoice_id}"/>
 
-                                        <input type="button" id="add_invoice_item" class="btn btn-info" name="add-invoice-item"  onClick="addInputField('addinvoiceItem');" value="<?php echo display('add_new_item') ?>" tabindex="12"/>
+                                        <input type="button" id="add_invoice_item" class="btn btn-info" name="add-invoice-item"  onClick="addInputField('addinvoiceItem');" value="<?php echo display('add_new_item') ?>" tabindex="7"/>
 
 
                                     </td>
                                     <td style="text-align:right;" colspan="3"><b><?php echo display('paid_ammount') ?>:</b></td>
                                     <td class="text-right">
                                         <input type="text" id="paidAmount" 
-                                               onkeyup="invoice_paidamount();" class="form-control text-right" name="paid_amount" value="{paid_amount}" tabindex="8" placeholder="0.00" />
+                                               onkeyup="invoice_paidamount();" class="form-control text-right" name="paid_amount" value="{paid_amount}" placeholder="0.00" />
                                     </td>
                                 </tr>
                                 <tr>
 
                                     <td align="center" colspan="2">
-                                        <input type="button" id="full_paid_tab" class="btn btn-warning" value="<?php echo display('full_paid') ?>" tabindex="14" onClick="full_paid()"/> 
+                                        <input type="button" id="full_paid_tab" class="btn btn-warning" value="<?php echo display('full_paid') ?>" tabindex="8" onClick="full_paid()"/> 
 
                                         <input type="submit" id="add-invoice" class="btn btn-success btn-large" name="add-invoice" value="<?php echo display('save_changes') ?>" tabindex="9"/>
                                     </td>
@@ -228,7 +240,13 @@
     </section>
 </div>
 <!-- Edit Invoice End -->
-
+<script type="text/javascript">
+    $(document).ready(function(){
+        var vehicle = $('#vehicle');
+        vehicle.val(vehicle.attr('vehicle-value'));
+        vehicle.trigger("change");
+    })
+</script>
 <style type="text/css">
     .btn:focus {
         background-color: #6A5ACD;

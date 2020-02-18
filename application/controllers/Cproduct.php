@@ -1116,7 +1116,8 @@ class Cproduct extends CI_Controller {
 
 
     public function insert_item(){
-
+        $this->load->model('Products');
+        
         $product_model = $this->input->post('model');
         $this->db->select('*');
         $this->db->from('product_information');
@@ -1182,7 +1183,6 @@ class Cproduct extends CI_Controller {
              'sub_product'=>'0',
             'status' => 1
         );
-
        $this->db->insert('product_information', $data);
         for ($i = 0; $i < count($item_code);  $i++) 
         {
@@ -1211,7 +1211,6 @@ class Cproduct extends CI_Controller {
             $this->db->insert('product_information', $supp_prd);
 
           //  print_r($supp_prd);
-
             $supp_prd = array(
 
                 'product_id' => "Q".$code,
@@ -1233,7 +1232,6 @@ class Cproduct extends CI_Controller {
                      //   print_r($supp_prd);
 
                      //   die();
-
             $supp_prd = array(
 
                 'product_id' => "D".$code,
@@ -1243,7 +1241,7 @@ class Cproduct extends CI_Controller {
                 'product_model' => "$code",
                 'category_id' => $this->input->post('category_id'),
                 'tax' => $tax,
-                 'serial_no' => $color,                
+                'serial_no' => $color,
                 'product_details' => $this->input->post('description'),
                 'image' => (!empty($image_url) ? $image_url : base_url('my-assets/image/product.png')),
                 'sub_product' =>$product_model,
@@ -1254,8 +1252,7 @@ class Cproduct extends CI_Controller {
             $this->db->insert('product_information', $supp_prd);
 
         }
-
-
+        $this->Products->update_cache_file();
         redirect(base_url('Cproduct/manage_product'));
 
         

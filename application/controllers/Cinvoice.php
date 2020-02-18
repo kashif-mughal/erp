@@ -54,7 +54,9 @@ class Cinvoice extends CI_Controller {
 
         $this->session->set_userdata(array('message' => display('successfully_added')));
 
-        $this->invoice_inserted_data($invoice_id);
+        redirect('Cinvoice/delivery_challan/'.$invoice_id);
+
+        //$this->invoice_inserted_data($invoice_id);
 
     }
 
@@ -92,7 +94,8 @@ class Cinvoice extends CI_Controller {
 
         $this->session->set_userdata(array('message' => display('successfully_updated')));
 
-        $this->invoice_inserted_data($invoice_id);
+        redirect('Cinvoice/delivery_challan/'.$invoice_id);
+        //$this->invoice_inserted_data($invoice_id);
 
     }
 
@@ -1054,8 +1057,6 @@ class Cinvoice extends CI_Controller {
 
             }
 
-
-
             $i = 0;
             foreach ($invoice_detail as $k => $v) {
 
@@ -1100,7 +1101,7 @@ class Cinvoice extends CI_Controller {
             array_push($categoriesGroup[$product_name][$v['unit']], $v);
         }
 // echo '<pre>';
-// print_r($categoriesGroup);die;
+// print_r($invoice_detail[0]['customer_id']);die;
         $customers_balance = $CI->Customers->customer_balance($invoice_detail[0]['customer_id']);
 
         if($customers_balance != 0){
@@ -1158,7 +1159,7 @@ class Cinvoice extends CI_Controller {
             
             'content' => "invoice/delivery_html",
             
-            'vehicle' => empty($invoice_detail[0]['employee_vehicle']) ? "N/A" : $invoice_detail[0]['employee_vehicle'],
+            'vehicle' => empty($invoice_detail[0]['vehicle']) ? "N/A" : $invoice_detail[0]['vehicle'],
 
             'customer_balance' => $customers_balance
 
@@ -1301,7 +1302,7 @@ class Cinvoice extends CI_Controller {
 
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id');
 
-        $this->db->join('product_information d', 'd.product_id = c.product_id');
+        $this->db->join('product_information d', 'd.product_uuid = c.product_uuid');
 
         $this->db->join('product_category pc', 'pc.category_id = d.category_id');
 

@@ -45,7 +45,7 @@ class Customers extends CI_Model {
         return false;
     }
     public function customer_balance($customer_id){
-        $this->db->select('CAST(sum(customer_transection_summary.amount) AS DECIMAL(16,2)) as customer_balance
+        $this->db->select('-CAST(sum(customer_transection_summary.amount) AS DECIMAL(16,2)) as customer_balance
             ');
         $this->db->from('customer_transection_summary');
         $this->db->where('customer_transection_summary.customer_id', $customer_id);

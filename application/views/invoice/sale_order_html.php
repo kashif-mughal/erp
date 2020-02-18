@@ -68,111 +68,113 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                             <div class="row" style="padding-bottom: 10px;">
 
                                 <div class="invoice-title"><span>Sale Order</span></div>
-                                <div class="col-sm-6 text-left" style="width: 50%;display: inline-block;font-size: 11px;">
-                                    <div class="col-sm-3 cl3">
-                                        <b><?php echo display('invoice_no') ?>:</b>
-                                    </div>
-                                    <div class="col-sm-3 cl3 field">
-                                        <span><?=$invoice_no?></span>
-                                    </div>
-                                    <div class="col-sm-3 cl3">
-                                        <b><?php echo display('billing_date') ?>:</b>
-                                    </div>
-                                    <div class="col-sm-3 cl3 field">
-                                        <span><?=$final_date?></span>
-                                    </div>
-                                    <div class="col-sm-3 cl3">
-                                        <b>Messers:</b>
-                                    </div>
-                                    <div class="col-sm-9 cl9 field">
-                                        <span><b style="font-size: 20px;"><?=$customer_name?></b></span>
-                                    </div>
-                                    <div class="col-sm-3 cl3">
-                                        <b>Address:</b>
-                                    </div>
-                                    <div class="col-sm-9 cl9 field">
-                                        <span><?=$customer_address?></span>
-                                    </div>
-                                    <div class="col-sm-3 cl3">
-                                        <b>Cell #:</b>
-                                    </div>
-                                    <div class="col-sm-3 cl3 field">
-                                        <span><?=$customer_mobile?></span>
-                                    </div>
-                                    <!-- <div class="col-sm-3 cl3">
-                                        <b>Sales Man:</b>
-                                    </div>
-                                    <div class="col-sm-3 cl3 field">
-                                        <span><?=$salesman?></span>
-                                    </div>
-                                    <div class="col-sm-3 cl3">
-                                        <b>Route:</b>
-                                    </div>
-                                    <div class="col-sm-3 cl3 field">
-                                        <span><?=$route?></span>
-                                    </div> -->
-                                    <div class="col-sm-3 cl3">
-                                        <b>C.Balance:</b>
-                                    </div>
-                                    <div class="col-sm-9 cl3 field">
-                                        <span>test test</span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 text-left" style="padding: 0px;width: 49%;display: inline-block; font-size: 9px;">
-                                    <div class="text-center"><b>DUE DATES</b></div>
-                                    <div class="col-sm-12" style="border: 1px solid black; padding: 5px; line-height: 22px;">
-                                        <div class="col-sm-2 cl2">
-                                            <b><span>30 Days</span></b>
+                                <div class="row" style="margin: 10px; padding: 5px; box-shadow: 2px 2px 2px 2px;">
+                                    <div class="col-sm-6 text-left" style="width: 60%;display: inline-block;font-size: 11px;">
+                                        <div class="col-sm-3 cl3">
+                                            <b><?php echo display('invoice_no') ?>:</b>
                                         </div>
-                                        <div class="col-sm-4 cl4">
-                                            <span id="after30"></span>
-                                        </div>
-                                        <div class="col-sm-2 cl2">
-                                            <b><span>60 Days</span></b>
-                                        </div>
-                                        <div class="col-sm-4 cl4">
-                                            <span id="after60"></span>
-                                        </div>
-                                        <div class="col-sm-2 cl2">
-                                            <b><span>90 Days</span></b>
-                                        </div>
-                                        <div class="col-sm-4 cl4">
-                                            <span id="after90"></span>
-                                        </div>
-                                        <div class="col-sm-2 cl2">
-                                            <b><span>120 Days</span></b>
-                                        </div>
-                                        <div class="col-sm-4 cl4">
-                                            <span id="after120"></span>
-                                        </div>
-                                        <div class="col-sm-2 cl2">
-                                            <b><span>150 Days</span></b>
-                                        </div>
-                                        <div class="col-sm-4 cl4">
-                                            <span id="after150"></span>
+                                        <div class="col-sm-3 cl3 field">
+                                            <span><?=$invoice_no?></span>
                                         </div>
                                         <div class="col-sm-3 cl3">
-                                            <b><span>Above</span></b>
+                                            <b><?php echo display('billing_date') ?>:</b>
+                                        </div>
+                                        <div class="col-sm-3 cl3 field">
+                                            <span><?=$final_date?></span>
                                         </div>
                                         <div class="col-sm-3 cl3">
-                                            <span></span>
+                                            <b>Messers:</b>
+                                        </div>
+                                        <div class="col-sm-9 cl9 field">
+                                            <span><b style="font-size: 20px;"><?=$customer_name?></b></span>
+                                        </div>
+                                        <div class="col-sm-3 cl3">
+                                            <b>Address:</b>
+                                        </div>
+                                        <div class="col-sm-9 cl9 field">
+                                            <span><?=$customer_address?></span>
+                                        </div>
+                                        <div class="col-sm-3 cl3">
+                                            <b>Cell #:</b>
+                                        </div>
+                                        <div class="col-sm-3 cl3 field">
+                                            <span><?=$customer_mobile?></span>
+                                        </div>
+                                        <!-- <div class="col-sm-3 cl3">
+                                            <b>Sales Man:</b>
+                                        </div>
+                                        <div class="col-sm-3 cl3 field">
+                                            <span><?=$salesman?></span>
+                                        </div>
+                                        <div class="col-sm-3 cl3">
+                                            <b>Route:</b>
+                                        </div>
+                                        <div class="col-sm-3 cl3 field">
+                                            <span><?=$route?></span>
+                                        </div> -->
+                                        <div class="col-sm-3 cl3">
+                                            <b>C.Balance:</b>
+                                        </div>
+                                        <div class="col-sm-9 cl3 field">
+                                            <span>test test</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 text-left" style="padding: 0px;width: 38%;display: inline-block; font-size: 8px;">
+                                        <div class="text-center extra-bolder">DUE DATES</div>
+                                        <div class="col-sm-12" style="border: 1px solid black; padding: 5px; line-height: 22px;">
+                                            <div class="col-sm-2 cl2">
+                                                <b><span>30 Days</span></b>
+                                            </div>
+                                            <div class="col-sm-4 cl4">
+                                                <span id="after30"></span>
+                                            </div>
+                                            <div class="col-sm-2 cl2">
+                                                <b><span>60 Days</span></b>
+                                            </div>
+                                            <div class="col-sm-4 cl4">
+                                                <span id="after60"></span>
+                                            </div>
+                                            <div class="col-sm-2 cl2">
+                                                <b><span>90 Days</span></b>
+                                            </div>
+                                            <div class="col-sm-4 cl4">
+                                                <span id="after90"></span>
+                                            </div>
+                                            <div class="col-sm-2 cl2">
+                                                <b><span>120 Days</span></b>
+                                            </div>
+                                            <div class="col-sm-4 cl4">
+                                                <span id="after120"></span>
+                                            </div>
+                                            <div class="col-sm-2 cl2">
+                                                <b><span>150 Days</span></b>
+                                            </div>
+                                            <div class="col-sm-4 cl4">
+                                                <span id="after150"></span>
+                                            </div>
+                                            <div class="col-sm-3 cl3">
+                                                <b><span>Above</span></b>
+                                            </div>
+                                            <div class="col-sm-3 cl3">
+                                                <span></span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div> <hr>
+                            </div>  
 
-                            <div class="table-responsive m-b-20" id="mainTable">
+                            <div class="table-responsive m-b-20" id="mainTable" style="font-size: 10px;">
                                 <table class="table table-striped">
                                     <thead>
-                                        <tr>
-                                            <th class="text-center"><?php echo display('sl') ?></th>
-                                            <th class="text-center"><?php echo display('product_name') ?></th>
-                                            <th class="text-center">Quantity</th>
-                                            <th class="text-center">Rate</th>
-                                            <th class="text-center">Gr. Amount</th>
-                                            <th class="text-center">Disc. %</th>
-                                            <th class="text-center">Tot. Disc</th>
-                                            <th class="text-center">Net Amount</th>
+                                        <tr style="border: 1px solid darkgrey;">
+                                            <th class="text-center no-border extra-bolder"><?php echo display('sl') ?></th>
+                                            <th class="text-center no-border extra-bolder"><?php echo display('product_name') ?></th>
+                                            <th class="text-center no-border extra-bolder">Quantity</th>
+                                            <th class="text-center no-border extra-bolder">Rate</th>
+                                            <th class="text-center no-border extra-bolder">Gr. Amount</th>
+                                            <th class="text-center no-border extra-bolder">Disc. %</th>
+                                            <th class="text-center no-border extra-bolder">Tot. Disc</th>
+                                            <th class="text-center no-border extra-bolder">Net Amount</th>
 
                                         </tr>
                                     </thead>
@@ -185,7 +187,7 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                                         $netAmount=0.00;
                                         $totalDiscount=0.00;
                                         foreach($invoice_all_data as $k => $v){ ?>
-                                            <tr style="font-family: inherit;">
+                                            <tr style="font-family: inherit; border-bottom: 2px solid black; border-top: none;">
                                                 <td class="emptyColumn"></td>
                                                 <td class="emptyColumn catHeading">
                                                     <?=$k?>
@@ -225,7 +227,7 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                                             <? } ?>
                                             <tr style="font-family: inherit;">
                                                 <td class="emptyColumn eachCatCount"></td>
-                                                <td class="emptyColumn eachCatCount header">
+                                                <td class="emptyColumn eachCatCount header extra-bolder">
                                                     <?=$totalQty."   ".$k2?>
                                                 </td>
                                                 <td class="emptyColumn eachCatCount"></td>
@@ -254,11 +256,11 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                                 </tbody>
                                 </table>
                         </div>
-                        <div class="row">
+                        <div class="row" style="position: relative; font-size: 11px;">
                             <div class="col-md-5 inlineDiv" style="padding-right: 5px;width: 41.6666666666%;">
                                 <table class="table table-striped">
                                     <thead>
-                                        <tr>
+                                        <tr class="topSolid">
                                             <th class="normalTd">Drum</th>
                                             <th class="normalTd">Gallon</th>
                                             <th class="normalTd">Quarter</th>
@@ -281,7 +283,7 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                             <div class="col-md-3 inlineDiv" style="padding-left: 0px;width: 25%;">
                                 <table class="table table-striped">
                                     <thead>
-                                        <tr>
+                                        <tr class="topSolid">
                                             <th class="text-center normalTd">Total Quantity</th>
                                         </tr>
                                     </thead>
@@ -295,7 +297,7 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-md-2 inlineDiv" style="padding-left: 0px;text-align: right;width: 16.6666666666%;">
+                            <div class="col-md-2 inlineDiv" style="padding-left: 0px;text-align: right;width: 16.6666666666%;position: absolute;bottom: 20px;">
                                 <div>
                                     <span class="header">Total :</span>
                                 </div>
@@ -306,7 +308,7 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                                     <span class="header">Invoice Value :</span>
                                 </div>
                             </div>
-                            <div class="col-md-2 inlineDiv" style="padding-left: 0px;text-align: right;width: 13.6666666666%;">
+                            <div class="col-md-2 inlineDiv" style="padding-left: 0px;text-align: right;width: 13.6666666666%;position: absolute; bottom: 20px;right: 0px;">
                                 <div>
                                     <span class="header"><?=number_format($subTotal_ammount,2)?></span>
                                 </div>
@@ -319,70 +321,113 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                             </div>
                         </div>
                         <style type="text/css">
-                                .emptyColumn{
-                                    border-right: none !important;
-                                    border-left: none !important;
-                                    background: white;
-                                }
-                                .eachCatCount{
-                                    text-align: right;
-                                }
-                                .header{
-                                    font-weight: bold;
-                                }
-                                .catHeading{
-                                    font-size: 20px;
-                                }
-                                .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
-                                    border: none;
-                                    border-right: 1px solid #e4e5e7;
-                                }
-                                hr{
-                                    border-top: 3px solid #e1e6ef;
-                                }
-                                .normalTd{
-                                    border: 1px solid #e4e5e7 !important;
-                                    text-align: center;
-                                }
-                                .inlineDiv{
-                                    display: inline-block;
-                                }
-                                .cl2{
-                                    display: inline-block;
-                                    width: 15.666666666666%;
-                                    padding: 0px;
-                                }
-                                .cl3{
-                                    display: inline-block;
-                                    width: 24%;
-                                    padding: 0px;
-                                }
-                                .cl4{
-                                    display: inline-block;
-                                    width: 32.33333333333%;
-                                    padding: 0px;
-                                }
-                                .cl9{
-                                    display: inline-block;
-                                    width: 72%;
-                                    padding: 0px;
-                                }
-                                .field{
-                                    border-bottom: 1px solid black;
-                                    /*margin: 0 10px;*/
-                                    display: inline-block;
-                                    padding: 0px;
-                                }
-                                .invoice-title{
-                                    text-align: center;
-                                }
-                                .invoice-title span{
-                                    border: 1px solid black;
-                                    padding: 10px 30px;
-                                    line-height: 83px;
-                                    font-size: 24px;
-                                }
+                            .table-striped>tbody>tr:nth-of-type(odd) {
+                                background-color: transparent;
+                            }
+                            .no-border{
+                                border: none !important;
+                            }
+                            .extra-bolder{
+                                font-weight: 800 !important;
+                            }
+                            .emptyColumn{
+                                border-right: none !important;
+                                border-left: none !important;
+                                background: white;
+                            }
+                            .eachCatCount{
+                                text-align: right;
+                            }
+                            .header{
+                                font-weight: bold;
+                            }
+                            .catHeading{
+                                font-size: 20px;
+                                font-style: italic;
+                            }
+                            .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+                                /*border: none;*/
+                                /*#e4e5e7*/
+                                border:1px solid darkgrey;
+                                border-right: 1px solid #5d5d5d;
+                            }
+                            hr{
+                                border-top: 3px solid #e1e6ef;
+                            }
+                            .normalTd{
+                                text-align: center;
+                            }
+                            .inlineDiv{
+                                display: inline-block;
+                            }
+                            .topSolid{
+                                border-top: 2px solid;
+                            }
+                            .cl2{
+                                display: inline-block;
+                                width: 15.666666666666%;
+                                padding: 0px;
+                            }
+                            .cl3{
+                                display: inline-block;
+                                width: 24%;
+                                padding: 0px;
+                            }
+                            .cl4{
+                                display: inline-block;
+                                width: 32.33333333333%;
+                                padding: 0px;
+                            }
+                            .cl9{
+                                display: inline-block;
+                                width: 72%;
+                                padding: 0px;
+                            }
+                            .field{
+                                border-bottom: 1px solid black;
+                                /*margin: 0 10px;*/
+                                display: inline-block;
+                                padding: 0px;
+                            }
+                            .invoice-title{
+                                text-align: center;
+                            }
+                            .invoice-title span{
+                                border: 1px solid black;
+                                padding: 10px 30px;
+                                line-height: 83px;
+                                font-size: 24px;
+                                font-style: italic;
+                                font-family: cursive;
+                            }
+                            .sign-area{
+                                display: inline-block;width: 33.333333333%
+                            }
+                            .sign-area div{
+                                float: left;
+                                text-align: center;
+                                border-top: 1px solid darkgrey;
+                                margin-top: 110px;
+                                font-weight: bold;
+                            }
                             </style>
+                        <div class="row">
+                            <div class="col-xs-4 sign-area">
+                                <div style="width: 65%;">
+                                    <span>Generated By</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 sign-area">
+                                <div style="width:70%;">
+                                    <span>Checked By</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 sign-area">
+                                <div style="width:65%;float: right;">
+                                    <span>Customer Sign</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="panel-footer text-left">

@@ -30,7 +30,6 @@ function addInputField(t, rowData = null) {
         tab4 = tabindex + 4;
         tab5 = tabindex + 5;
         tab6 = tabindex + 6;
-        tab7 = tabindex + 7;
         if(rowData)
             e.classList.add('row-from-sale-order');
         var innerHTMLValue = "<td><input type='text' name='product_name' onkeypress='invoice_productList(" + count + ");' class='form-control productSelection' placeholder='Product Name' id='" + a + "' required tabindex='" + tab1 + "'";
@@ -41,13 +40,13 @@ function addInputField(t, rowData = null) {
             productName = desiredProduct[0].label;
         if(rowData)
             innerHTMLValue += ` value='${productName}'`;
-        innerHTMLValue += "><input type='hidden' class='autocomplete_hidden_value  product_id_" + count + "' name='product_id[]' id='SchoolHiddenId'"
+        innerHTMLValue += "><input type='hidden' class='product_uuid' name='product_uuid[]' id='product_uuid[]'><input type='hidden' class='autocomplete_hidden_value  product_id_" + count + "' name='product_id[]' id='SchoolHiddenId'"
         if(rowData && rowData.product_id)
             innerHTMLValue += ` value='${rowData.product_id}'`;
         innerHTMLValue += "/></td>   <td><input type='text' name='available_quantity[]' id='' class='form-control text-right available_quantity_" + count + "' value='0' readonly='readonly' /></td><td><input class='form-control text-right unit_" + count + " valid' value='None' readonly='' aria-invalid='false' type='text'></td><td> <input type='text' name='product_quantity[]' required='required' onkeyup='quantity_calculate(" + count + ");' onchange='quantity_calculate(" + count + ");' id='total_qntt_" + count + "' class='total_qntt_" + count + " form-control text-right'  placeholder='0.00' min='0' tabindex='" + tab2 + "'";
         if(rowData && rowData.remaining_quantity)
             innerHTMLValue += ` value='${rowData.remaining_quantity}'`;
-        innerHTMLValue += "/></td><td><input type='text' name='product_rate[]' onkeyup='quantity_calculate(" + count + ");'  onkeydown='change_rate(event);' isallowchangeprice=\"false\" onchange='quantity_calculate(" + count + ");' id='price_item_" + count + "' class='price_item" + count + " form-control text-right' required placeholder='0.00' min='0' tabindex='" + tab3 + "'";
+        innerHTMLValue += "/></td><td><input type='text' name='product_rate[]' onkeyup='quantity_calculate(" + count + ");'  onkeydown='change_rate(event);' isallowchangeprice=\"false\" onchange='quantity_calculate(" + count + ");' id='price_item_" + count + "' class='price_item" + count + " form-control text-right' required placeholder='0.00' min='0'";
         if(rowData && rowData.rate)
             innerHTMLValue += ` value='${rowData.rate}'`;
         innerHTMLValue += "/></td><td><input type='text' name='discount[]'";
@@ -64,10 +63,10 @@ function addInputField(t, rowData = null) {
         e.innerHTML = innerHTMLValue;
                 document.getElementById(t).appendChild(e),
                 document.getElementById(a).focus(),
-                document.getElementById("add_invoice_item").setAttribute("tabindex", tab4);
-        document.getElementById("paidAmount").setAttribute("tabindex", tab5);
-        document.getElementById("full_paid_tab").setAttribute("tabindex", tab6);
-        document.getElementById("add_invoice").setAttribute("tabindex", tab7);
+                document.getElementById("add_invoice_item").setAttribute("tabindex", tab3);
+        document.getElementById("paidAmount").setAttribute("tabindex", tab4);
+        document.getElementById("full_paid_tab").setAttribute("tabindex", tab5);
+        document.getElementById("add_invoice").setAttribute("tabindex", tab6);
         if(rowData && rowData.product_id){
             triggerProductSelectionFirstTime(count, rowData.product_id);
         }

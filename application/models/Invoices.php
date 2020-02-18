@@ -745,6 +745,8 @@ class Invoices extends CI_Model {
 
             'delivery_challan' => $delivery_challan,
 
+            'vehicle' => $this->input->post('vehicle'),
+
             'status' => 1
 
         );
@@ -787,6 +789,7 @@ class Invoices extends CI_Model {
         $discount_rate = $this->input->post('discount_amount');
         $discount_per = $this->input->post('discount');
         $tax_amount = $this->input->post('tax');
+        $product_uuid = $this->input->post('product_uuid');
 
         for ($i = 0, $n = count($p_id); $i < $n; $i++) {
 
@@ -795,6 +798,7 @@ class Invoices extends CI_Model {
             $product_quantity = $quantity[$i];
             $product_rate = $rate[$i];
             $product_id = $p_id[$i];
+            $product_uniqueId = $product_uuid[$i];
             $total_price = $total_amount[$i];
             $supplier_rate = $this->supplier_rate($product_id);
             $disper = $discount_per[$i];
@@ -808,6 +812,7 @@ class Invoices extends CI_Model {
                 'invoice_details_id' => $this->generator(15),
                 'invoice_id' => $invoice_id,
                 'product_id' => $product_id,
+                'product_uuid' => $product_uniqueId,
                 'quantity' => $product_quantity,
                 'rate' => $product_rate,
                 'discount' => $discount,
@@ -871,7 +876,7 @@ class Invoices extends CI_Model {
 
         $this->db->join('invoice_details c', 'c.invoice_id = a.invoice_id');
 
-        $this->db->join('product_information d', 'd.product_id = c.product_id');
+        $this->db->join('product_information d', 'd.product_uuid = c.product_uuid');
 
         $this->db->where('a.invoice_id', $invoice_id);
 
@@ -896,10 +901,6 @@ class Invoices extends CI_Model {
     public function update_invoice() {
 
         $invoice_id = $this->input->post('invoice_id');
-
-
-
-
 
         $ab = $this->db->select('transaction_id')->from('customer_ledger')->where('invoice_no', $invoice_id)->get()->result();
 
@@ -962,7 +963,9 @@ class Invoices extends CI_Model {
 
             'total_discount' => $this->input->post('total_discount'),
 
-            'delivery_challan' => $this->input->post('delivery_challan')
+            'delivery_challan' => $this->input->post('delivery_challan'),
+
+            'vehicle' => $this->input->post('vehicle')
 
         );
 
@@ -1064,6 +1067,8 @@ class Invoices extends CI_Model {
 
         $discount_per = $this->input->post('discount');
 
+        $product_uuid = $this->input->post('product_uuid');
+
         //$tax_amount 	= $this->input->post('tax');
 
         $this->db->where('invoice_id', $invoice_id);
@@ -1081,6 +1086,8 @@ class Invoices extends CI_Model {
             $product_rate = $rate[$i];
 
             $product_id = $p_id[$i];
+
+            $product_uniqueId = $product_uuid[$i];
 
             $total_price = $total_amount[$i];
 
@@ -1117,6 +1124,8 @@ class Invoices extends CI_Model {
                 'invoice_id' => $invoice_id,
 
                 'product_id' => $product_id,
+
+                'product_uuid' => $product_uniqueId,
 
                 'quantity' => $product_quantity,
 
@@ -1227,7 +1236,9 @@ class Invoices extends CI_Model {
 
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id');
 
-        $this->db->join('product_information d', 'd.product_id = c.product_id');
+        //$this->db->join('product_information d', 'd.product_id = c.product_id');
+
+        $this->db->join('product_information d', 'd.product_uuid = c.product_uuid');
 
         $this->db->join('product_category pc', 'pc.category_id = d.category_id');
 
