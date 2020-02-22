@@ -617,7 +617,9 @@ class Cinvoice extends CI_Controller {
         $CI->load->model('Invoices');
 
         $product_id = $this->input->post('product_id');
-        $product_info = $CI->Invoices->pos_invoice_setup($product_id);
+        $product_uuid = null;
+        $product_uuid = $this->input->post('product_uuid');
+        $product_info = $CI->Invoices->pos_invoice_setup($product_id, $product_uuid);
         //$product_info = $CI->Invoices->get_total_product_invoic($product_id);
 
 
@@ -1028,8 +1030,6 @@ class Cinvoice extends CI_Controller {
 
         $CI->load->model('Invoices');
 
-        $CI->load->model('Customers');
-
         $CI->load->model('Web_settings');
 
         $CI->load->library('occational');
@@ -1102,13 +1102,7 @@ class Cinvoice extends CI_Controller {
         }
 // echo '<pre>';
 // print_r($invoice_detail[0]['customer_id']);die;
-        $customers_balance = $CI->Customers->customer_balance($invoice_detail[0]['customer_id']);
-
-        if($customers_balance != 0){
-            $customers_balance = $customers_balance[0]["customer_balance"];
-        }else{
-            $customers_balance = "N/A";
-        }
+        
         $data = array(
 
             'title' => display('invoice_details'),
@@ -1159,9 +1153,7 @@ class Cinvoice extends CI_Controller {
             
             'content' => "invoice/delivery_html",
             
-            'vehicle' => empty($invoice_detail[0]['vehicle']) ? "N/A" : $invoice_detail[0]['vehicle'],
-
-            'customer_balance' => $customers_balance
+            'vehicle' => empty($invoice_detail[0]['vehicle']) ? "N/A" : $invoice_detail[0]['vehicle']
 
         );
     // echo '<pre>';

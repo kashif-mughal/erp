@@ -436,19 +436,38 @@ class Invoices extends CI_Model {
 
     }
 
+    public function get_new_invoice_id(){
+        $this->db->select('invoice');
+
+        $this->db->from('invoice');
+
+        $this->db->order_by('invoice', 'desc');
+
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+
+            return $query->result_array();
+
+        }
+
+        return false;
+    }
 
 
     //POS invoice entry
 
-    public function pos_invoice_setup($product_id) {
+    public function pos_invoice_setup($product_id, $product_uuid = null) {
 
         $product_information = $this->db->select('*')
 
                 ->from('product_information')
 
                 //->join('supplier_product', 'product_information.product_id = supplier_product.product_id')
-
-                ->where('product_information.product_id', $product_id)
+                
+                ->where(is_null($product_uuid) ? 'product_id' : 'product_uuid', is_null($product_uuid) ? $product_id : $product_uuid)
 
                 ->get()
 

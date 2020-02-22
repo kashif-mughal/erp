@@ -490,6 +490,10 @@ class Linvoice {
         $customer_details = $CI->Invoices->pos_customer_setup();
 
         $currency_details = $CI->Web_settings->retrieve_setting_editdata();
+
+        $last_invoice_id = $CI->Invoices->get_new_invoice_id();
+        $last_invoice_id = $last_invoice_id[0]['invoice'];
+
         $data = array(
 
             'title' => display('add_new_pos_invoice'),
@@ -500,7 +504,9 @@ class Linvoice {
 
             'discount_type' => $currency_details[0]['discount_type'],
 
-            'customer_list' => $customer_list
+            'customer_list' => $customer_list,
+
+            'new_invoice_no' => $last_invoice_id + 1
 
         );
 
@@ -576,16 +582,20 @@ class Linvoice {
 
         $currency_details = $CI->Web_settings->retrieve_setting_editdata();
 
+        $last_invoice_id = $CI->Invoices->get_new_invoice_id();
+        $last_invoice_id = $last_invoice_id[0]['invoice'];
+
         $data = array(
 
             'title' => display('add_new_invoice'),
 
             'discount_type' => $currency_details[0]['discount_type'],
 
-            'customer_list' => $customer_list
+            'customer_list' => $customer_list,
+
+            'new_invoice_no' => $last_invoice_id + 1
 
         );
-
         $invoiceForm = $CI->parser->parse('invoice/add_invoice_form', $data, true);
 
         return $invoiceForm;

@@ -109,7 +109,10 @@
                 <div class="panel panel-bd lobidrag">
                     <div class="panel-heading">
                         <div class="panel-title">
-                            <h4><?php echo display('new_invoice') ?></h4>
+                            <h4 style="display: inline;"><?php echo display('new_invoice') ?></h4>
+                            <big>{new_invoice_no}</big><br>
+                            <h4 style="display: inline;">C.Balance</h4>
+                            <big id="customer_balance">N/A</big>
                         </div>
                     </div>
                     <?php echo form_open_multipart('Cinvoice/insert_invoice', array('class' => 'form-vertical', 'id' => 'insert_invoice', 'name' => 'insert_invoice')) ?>
@@ -169,6 +172,7 @@
                                         ?> <i class="text-danger">*</i></label>
                                     <div class="col-sm-6">
                                         <select class='form-control' name="customer_id" tabindex="5" required id="customer_id">
+                                            <option>--Select Customer--</option>
                                             {customer_list}
                                                 <option value="{customer_id}">{customer_name}</option>
                                             {/customer_list}

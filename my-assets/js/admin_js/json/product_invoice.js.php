@@ -68,7 +68,11 @@ APchange = function(event, ui){
 				
 				var id=ui.item.value;
 
-				var dataString = 'product_id='+ id;
+				var uuid=ui.item.product_uuid;
+
+				//var dataString = 'product_id='+ id;
+
+				//var dataString = 'product_uuid='+ uuid;
 
 				var base_url = $('.baseUrl').val();
 
@@ -84,7 +88,7 @@ APchange = function(event, ui){
 
 						url: base_url+"Cinvoice/retrieve_product_data_inv",
 
-						data: dataString,
+						data: {product_id:id, product_uuid:uuid},
 
 						cache: false,
 

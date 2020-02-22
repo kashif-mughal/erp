@@ -255,6 +255,18 @@ class Ccustomer extends CI_Controller {
         exit;
     }
 
+    public function customer_balance(){
+        $CI = & get_instance();
+        $CI->load->model('Customers');
+        $customers_balance = $CI->Customers->customer_balance($this->input->post('customer_id'));
+        if($customers_balance != 0){
+            $customers_balance = $customers_balance[0]["customer_balance"];
+        }else{
+            $customers_balance = "N/A";
+        }
+        echo $customers_balance;
+    }
+
     // product_delete
     public function customer_delete() {
         $this->load->model('Customers');

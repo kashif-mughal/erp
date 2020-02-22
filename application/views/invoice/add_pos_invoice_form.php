@@ -19,6 +19,7 @@
 
 <!-- Customer type change by javascript start -->
 <script type="text/javascript">
+    var customerInformation = JSON.parse(`<?php echo json_encode($customer_list);?>`);
     function bank_info_show(payment_type)
     {
         if (payment_type.value == "1") {
@@ -106,7 +107,10 @@
                 <div class="panel panel-bd lobidrag">
                     <div class="panel-heading">
                         <div class="panel-title">
-                            <h4><?php echo display('new_pos_invoice') ?></h4>
+                            <h4 style="display: inline;"><?php echo display('new_pos_invoice') ?></h4>
+                            <big>{new_invoice_no}</big><br>
+                            <h4 style="display: inline;">C.Balance</h4>
+                            <big id="customer_balance">N/A</big>
                         </div>
                     </div>
 

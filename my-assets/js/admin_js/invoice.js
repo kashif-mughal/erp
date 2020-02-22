@@ -295,9 +295,23 @@ $(document).ready(function(){
                     quantity_calculate(discountId);
                 }
             }
+            change_current_balance(currentCustomerInformation[0]['customer_id']);
         }
     });
 })
+function change_current_balance(customer_id){
+    $.ajax
+       ({
+            type: "POST",
+            url: $('.baseUrl').val()+"Ccustomer/customer_balance",
+            data: {customer_id:customer_id},
+            cache: false,
+            success: function(data)
+            {
+                $('#customer_balance').html(data);
+            } 
+        });    
+}
 //Invoice Paid Amount
 function invoice_paidamount() {
     var t = $("#grandTotal").val(),

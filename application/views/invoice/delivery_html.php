@@ -118,12 +118,6 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                                         <div class="col-sm-3 cl3 field">
                                             <span><?=$route?></span>
                                         </div>
-                                        <div class="col-sm-3 cl3">
-                                            <b>C.Balance:</b>
-                                        </div>
-                                        <div class="col-sm-9 cl9 field">
-                                            <span><?=$customer_balance?></span>
-                                        </div>
                                     </div>
                                     <div class="col-sm-6 text-left" style="padding: 0px;width: 38%;display: inline-block; font-size: 8px;">
                                         <div class="text-center extra-bolder" style="margin-bottom: 13px;">DUE DATES OF INVOICE</div>
