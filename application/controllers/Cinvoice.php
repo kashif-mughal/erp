@@ -72,7 +72,9 @@ class Cinvoice extends CI_Controller {
 
         $CI->load->library('linvoice');
 
-        $content = $CI->linvoice->invoice_edit_data($invoice_id);
+        $customer_list = $this->db->query("select customer_id, customer_name, credit_limit, discount from customer_information")->result_array();
+
+        $content = $CI->linvoice->invoice_edit_data($invoice_id, $customer_list);
 
         $this->template->full_admin_html_view($content);
 

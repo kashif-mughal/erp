@@ -1163,6 +1163,7 @@ class Cproduct extends CI_Controller {
         $item_gallon = $this->input->post('item_gallon');
         $item_quarter = $this->input->post('item_quarter');
         $item_drum = $this->input->post('item_drum');
+        $special = $this->input->post('special');
         $price = $this->input->post('price');
 
         $tax_percentage = $this->input->post('tax');
@@ -1180,7 +1181,7 @@ class Cproduct extends CI_Controller {
             'product_model' => $this->input->post('model'),
             'product_details' => $this->input->post('description'),
             'image' => (!empty($image_url) ? $image_url : base_url('my-assets/image/product.png')),
-             'sub_product'=>'0',
+            'sub_product'=>'0',
             'status' => 1
         );
        $this->db->insert('product_information', $data);
@@ -1191,7 +1192,7 @@ class Cproduct extends CI_Controller {
             $drum = $item_drum[$i];
             $quarter = $item_quarter[$i];
             $gallon = $item_gallon[$i];       
-
+            $each_special = $special[$i];
             $supp_prd = array(
 
                 'product_id' => "G".$code,
@@ -1205,7 +1206,8 @@ class Cproduct extends CI_Controller {
                 'product_details' => $this->input->post('description'),
                 'image' => (!empty($image_url) ? $image_url : base_url('my-assets/image/product.png')),
                 'sub_product'=>$product_model,
-                'status' => 1
+                'status' => 1,
+                'special' => $each_special
 
             );
             $this->db->insert('product_information', $supp_prd);
@@ -1224,7 +1226,8 @@ class Cproduct extends CI_Controller {
                 'product_details' => $this->input->post('description'),
                 'image' => (!empty($image_url) ? $image_url : base_url('my-assets/image/product.png')),
                 'sub_product'=>$product_model,
-                'status' => 1
+                'status' => 1,
+                'special' => $each_special
 
             );
             $this->db->insert('product_information', $supp_prd);
@@ -1245,7 +1248,8 @@ class Cproduct extends CI_Controller {
                 'product_details' => $this->input->post('description'),
                 'image' => (!empty($image_url) ? $image_url : base_url('my-assets/image/product.png')),
                 'sub_product' =>$product_model,
-                'status' => 1
+                'status' => 1,
+                'special' => $each_special
 
             );
 
@@ -1290,9 +1294,8 @@ class Cproduct extends CI_Controller {
             //echo $products->product_model;
             $subproducts[$products->product_model]['color'] = $products->serial_no;
             $subproducts[$products->product_model]['unit'][$products->unit] = $products->price; 
-
+            $subproducts[$products->product_model]['special'] = $products->special;
         }
-        
         $data = array(
             'title' => display('edit_your_product'),
             'product_id' => $product_detail[0]['product_id'],

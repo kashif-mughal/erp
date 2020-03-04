@@ -169,6 +169,7 @@
                             <table class="table table-bordered table-hover"  id="product_table">
                                 <thead>
                                     <tr>
+                                        <th class="text-center">Is Special<i class="text-danger"></i></th>
                                         <th class="text-center">Code <i class="text-danger">*</i></th>
                                         <th class="text-center">Color <i class="text-danger">*</i></th>
 
@@ -181,7 +182,9 @@
                                 </thead>
                                 <tbody id="proudt_item">
                                     <tr class="">
-
+                                        <td>
+                                           <input style="margin-top: 0px;" type="checkbox" tabindex="9" class="form-control text-right" name="special[]"/>
+                                        </td>
                                         <td>
                                            <input type="text" tabindex="9" class="form-control text-right" name="item_code[]" placeholder="Code"    min="0"/>
                                         </td>

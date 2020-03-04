@@ -64,7 +64,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" name="customer_name" value="{customer_name}" class="form-control customerSelection" placeholder='<?php echo display('customer_name') ?>' required id="customer_name" autofocus tabindex="1">
 
-                                        <input type="hidden" class="customer_hidden_value" name="customer_id" value="{customer_id}" id="SchoolHiddenId"/>
+                                        <input type="hidden" class="customer_hidden_value" name="customer_id" value="{customer_id}" id="customer_id" id="SchoolHiddenId" />
                                     </div>
                                 </div>
                             </div>
@@ -107,6 +107,7 @@
                                     <tr>
                                         <th class="text-center"><?php echo display('item_information') ?> <i class="text-danger">*</i></th>
                                         <th class="text-center"><?php echo display('available_qnty') ?></th>
+                                        <th class="text-center"><?php echo display('unit') ?></th>
                                         <th class="text-center"><?php echo display('quantity') ?>  <i class="text-danger">*</i></th>
                                         <th class="text-center"><?php echo display('rate') ?> <i class="text-danger">*</i></th>
 
@@ -124,7 +125,7 @@
                                 </thead>
                                 <tbody id="addinvoiceItem">
                                     {invoice_all_data}
-                                    <tr>
+                                    <tr rowid="{sl}">
                                         <td class="" style="width: 200px;">
                                             <input type="text" name="product_name" onclick="invoice_productList({sl});" value="{product_name}-({product_model})" class="form-control productSelection" required placeholder='<?php echo display('product_name') ?>' id="product_names" tabindex="5">
                                             <input type='hidden' class='product_uuid' name='product_uuid[]' id='product_uuid[]' value="{product_uuid}">
@@ -132,6 +133,9 @@
                                         </td>
                                         <td>
                                             <input type="text" name="available_quantity[]" class="form-control text-right available_quantity_1" value="0" readonly="" />
+                                        </td>
+                                        <td>
+                                            <input name="" id="" class="form-control text-right unit_1 valid" value="{unit}" readonly="" aria-invalid="false" type="text">
                                         </td>
                                         <td>
                                             <input type="text" name="product_quantity[]" onkeyup="quantity_calculate({sl});" onchange="quantity_calculate({sl});" value="{quantity}" class="total_qntt_{sl} form-control text-right" id="total_qntt_{sl}" min="0" placeholder="0.00" tabindex="6" required="required"/>
@@ -221,7 +225,7 @@
                                     <td align="center" colspan="2">
                                         <input type="button" id="full_paid_tab" class="btn btn-warning" value="<?php echo display('full_paid') ?>" tabindex="8" onClick="full_paid()"/> 
 
-                                        <input type="submit" id="add-invoice" class="btn btn-success btn-large" name="add-invoice" value="<?php echo display('save_changes') ?>" tabindex="9"/>
+                                        <input type="submit" id="add_invoice" class="btn btn-success btn-large" name="add-invoice" value="<?php echo display('save_changes') ?>" tabindex="9"/>
                                     </td>
 
                                     <td style="text-align:right;" colspan="3"><b><?php echo display('due') ?>:</b></td>
@@ -241,10 +245,12 @@
 </div>
 <!-- Edit Invoice End -->
 <script type="text/javascript">
+    var customerInformation = JSON.parse(`<?php echo json_encode($customer_list);?>`);
     $(document).ready(function(){
         var vehicle = $('#vehicle');
         vehicle.val(vehicle.attr('vehicle-value'));
         vehicle.trigger("change");
+        get_curent_customer_information();
     })
 </script>
 <style type="text/css">

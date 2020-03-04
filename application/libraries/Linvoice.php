@@ -622,7 +622,7 @@ class Linvoice {
 
     //Invoice Edit Data
 
-    public function invoice_edit_data($invoice_id) {
+    public function invoice_edit_data($invoice_id, $customer_list = null) {
 
         $CI = & get_instance();
 
@@ -686,10 +686,11 @@ class Linvoice {
 
             'delivery_challan' => $invoice_detail[0]['delivery_challan'],
 
-            'vehicle' => $invoice_detail[0]['vehicle']
+            'vehicle' => $invoice_detail[0]['vehicle'],
+
+            'customer_list' =>  $customer_list
 
         );
-
         $chapterList = $CI->parser->parse('invoice/edit_invoice_form', $data, true);
 
         return $chapterList;

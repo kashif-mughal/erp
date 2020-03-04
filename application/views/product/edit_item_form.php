@@ -324,6 +324,7 @@
 
                                <thead>
                                     <tr>
+                                        <th class="text-center">Is Special<i class="text-danger"></i></th>
                                         <th class="text-center">Code <i class="text-danger">*</i></th>
                                         <th class="text-center">Color <i class="text-danger">*</i></th>
 
@@ -337,9 +338,11 @@
 
                                 <tbody id="proudt_item">
 
-                                   <?php foreach($sub_products as $code => $values){ ?>
+                                   <?php foreach($sub_products as $code => $values){?>
                                     <tr class="">
-
+                                        <td>
+                                           <input style="margin-top: 0px;" type="checkbox" tabindex="9" class="form-control text-right" name="special[]" <?php if($values['special'] == 1){echo 'checked';}?>/>
+                                        </td>
                                         <td>
                                            <input type="text" tabindex="9" class="form-control text-right" name="item_code[]" placeholder="Code" value='<?=$code?>'    min="0"/>
                                         </td>
