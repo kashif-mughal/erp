@@ -178,61 +178,61 @@
                                 <tfoot>
 
                                     <tr>
-                                        <td colspan="4" rowspan="3">
-                                <center><label style="text-align:center;" for="details" class="  col-form-label"><?php echo display('invoice_details') ?></label></center>
-                                <textarea name="inva_details" class="form-control" placeholder="<?php echo display('invoice_details') ?>">{invoice_details}</textarea>
-                                </td>
-                                <td style="text-align:right;" colspan="1"><b><?php echo display('total_tax') ?>:</b></td>
-                                <td class="text-right">
-                                    <input id="total_tax_ammount" class="form-control text-right" name="total_tax" value="{total_tax}" readonly="readonly" type="text">
-                                </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align:right;" colspan="1"><?php echo display('invoice_discount') ?>:</td>
-                                    <td class="text-right">
-                                        <input type="text" onkeyup="quantity_calculate(1);"  onchange="quantity_calculate(1);" id="invoice_discount" class="form-control text-right" name="invoice_discount" value="{invoice_discount}" placeholder="0.00"  />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align:right;" colspan="1"><b><?php echo display('total_discount') ?>:</b></td>
-                                    <td class="text-right">
-                                        <input type="text" id="total_discount_ammount" class="form-control text-right" name="total_discount" value="{total_discount}" readonly="readonly" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5"  style="text-align:right;"><b><?php echo display('grand_total') ?>:</b></td>
-                                    <td class="text-right">
-                                        <input type="text" id="grandTotal" class="form-control text-right" name="grand_total_price" value="{total_amount}" readonly="readonly" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center" colspan="2">
-                                        <input type="hidden" name="baseUrl" class="baseUrl" value="<?php echo base_url(); ?>"/>
-                                        <input type="hidden" name="invoice_id" id="invoice_id" value="{invoice_id}"/>
+                                        <td colspan="5" rowspan="3">
+                                            <center><label style="text-align:center;" for="details" class="  col-form-label"><?php echo display('invoice_details') ?></label></center>
+                                            <textarea name="inva_details" class="form-control" placeholder="<?php echo display('invoice_details') ?>">{invoice_details}</textarea>
+                                        </td>
+                                        <td style="text-align:right;" colspan="1"><b><?php echo display('total_tax') ?>:</b></td>
+                                        <td class="text-right">
+                                            <input id="total_tax_ammount" class="form-control text-right" name="total_tax" value="{total_tax}" readonly="readonly" type="text">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right;" colspan="1"><?php echo display('invoice_discount') ?>:</td>
+                                        <td class="text-right">
+                                            <input type="text" onkeyup="quantity_calculate(1);"  onchange="quantity_calculate(1);" id="invoice_discount" class="form-control text-right" name="invoice_discount" value="{invoice_discount}" placeholder="0.00"  />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:right;" colspan="1"><b><?php echo display('total_discount') ?>:</b></td>
+                                        <td class="text-right">
+                                            <input type="text" id="total_discount_ammount" class="form-control text-right" name="total_discount" value="{total_discount}" readonly="readonly" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6"  style="text-align:right;"><b><?php echo display('grand_total') ?>:</b></td>
+                                        <td class="text-right">
+                                            <input type="text" id="grandTotal" class="form-control text-right" name="grand_total_price" value="{total_amount}" readonly="readonly" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" colspan="2">
+                                            <input type="hidden" name="baseUrl" class="baseUrl" value="<?php echo base_url(); ?>"/>
+                                            <input type="hidden" name="invoice_id" id="invoice_id" value="{invoice_id}"/>
 
-                                        <input type="button" id="add_invoice_item" class="btn btn-info" name="add-invoice-item"  onClick="addInputField('addinvoiceItem');" value="<?php echo display('add_new_item') ?>" tabindex="7"/>
+                                            <input type="button" id="add_invoice_item" class="btn btn-info" name="add-invoice-item"  onClick="addInputField('addinvoiceItem');" value="<?php echo display('add_new_item') ?>" tabindex="7"/>
 
 
-                                    </td>
-                                    <td style="text-align:right;" colspan="3"><b><?php echo display('paid_ammount') ?>:</b></td>
-                                    <td class="text-right">
-                                        <input type="text" id="paidAmount" 
-                                               onkeyup="invoice_paidamount();" class="form-control text-right" name="paid_amount" value="{paid_amount}" placeholder="0.00" />
-                                    </td>
-                                </tr>
-                                <tr>
+                                        </td>
+                                        <td style="text-align:right;" colspan="4"><b><?php echo display('paid_ammount') ?>:</b></td>
+                                        <td class="text-right">
+                                            <input type="text" id="paidAmount" 
+                                            onkeyup="invoice_paidamount();" class="form-control text-right" name="paid_amount" value="{paid_amount}" placeholder="0.00" />
+                                        </td>
+                                    </tr>
+                                    <tr>
 
-                                    <td align="center" colspan="2">
-                                        <input type="button" id="full_paid_tab" class="btn btn-warning" value="<?php echo display('full_paid') ?>" tabindex="8" onClick="full_paid()"/> 
+                                        <td align="center" colspan="2">
+                                            <input type="button" id="full_paid_tab" class="btn btn-warning" value="<?php echo display('full_paid') ?>" tabindex="8" onClick="full_paid()"/> 
 
-                                        <input type="submit" id="add_invoice" class="btn btn-success btn-large" name="add-invoice" value="<?php echo display('save_changes') ?>" tabindex="9"/>
-                                    </td>
+                                            <input type="submit" id="add_invoice" class="btn btn-success btn-large" name="add-invoice" value="<?php echo display('save_changes') ?>" tabindex="9"/>
+                                        </td>
 
-                                    <td style="text-align:right;" colspan="3"><b><?php echo display('due') ?>:</b></td>
-                                    <td class="text-right">
-                                        <input type="text" id="dueAmmount" class="form-control text-right" name="due_amount" value="{due_amount}" readonly="readonly"/>
-                                    </td>
-                                </tr>
+                                        <td style="text-align:right;" colspan="4"><b><?php echo display('due') ?>:</b></td>
+                                        <td class="text-right">
+                                            <input type="text" id="dueAmmount" class="form-control text-right" name="due_amount" value="{due_amount}" readonly="readonly"/>
+                                        </td>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>

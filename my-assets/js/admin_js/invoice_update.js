@@ -131,7 +131,7 @@ function triggerProductSelectionFirstTime(cName, productId){
             {
                 var obj = jQuery.parseJSON(data);
                 $('.'+priceClass).val(obj.price);
-                //$('.'+available_quantity).val(obj.total_product.toFixed(2,2));
+                //$('.'+available_quantity).val(obj.total_product.tofixed());
                 $('.'+unit).val(obj.unit);
                 $('.'+tax).val(obj.tax);
                 $('#'+discount_type).val(obj.discount_type);
@@ -228,23 +228,23 @@ function calculateSum() {
     //Total Tax
     $(".total_tax").each(function () {
         isNaN(this.value) || 0 == this.value.length || (a += parseFloat(this.value))
-    }),
-            $("#total_tax_ammount").val(a.toFixed(2, 2)),
-            //Total Discount
-            $(".total_discount").each(function () {
+    });debugger;
+    $("#total_tax_ammount").val(Math.round(a));
+    //Total Discount
+    $(".total_discount").each(function () {
         isNaN(this.value) || 0 == this.value.length || (p += parseFloat(this.value))
-    }),
-            $("#total_discount_ammount").val(p.toFixed(2, 2)),
-            //Total Price
-            $(".total_price").each(function () {
+    });
+    $("#total_discount_ammount").val(Math.round(p));
+    //Total Price
+    $(".total_price").each(function () {
         isNaN(this.value) || 0 == this.value.length || (t += parseFloat(this.value))
-    }),
-            o = a.toFixed(2, 2),
-            e = t.toFixed(2, 2);
-    f = p.toFixed(2, 2);
+    });
+    o = Math.round(a);
+    e = Math.round(t);
+    f = Math.round(p);
 
     var test = +o + +e + -f;
-    var grandTotalValue = test.toFixed(2, 2);
+    var grandTotalValue = Math.round(test);
     $("#grandTotal").val(grandTotalValue);
     get_curent_customer_information();
     if(currentCustomerInformation && currentCustomerInformation[0] && currentCustomerInformation[0].credit_limit){
@@ -317,7 +317,7 @@ function invoice_paidamount() {
     var t = $("#grandTotal").val(),
             a = $("#paidAmount").val(),
             e = t - a;
-    $("#dueAmmount").val(e.toFixed(2, 2))
+    $("#dueAmmount").val(Math.round(e))
 }
 //Stock Limit
 function stockLimit(t) {
