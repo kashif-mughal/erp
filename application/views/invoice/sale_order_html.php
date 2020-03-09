@@ -86,7 +86,7 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                                             <b>Messers:</b>
                                         </div>
                                         <div class="col-sm-9 cl9 field">
-                                            <span><b style="font-size: 20px;"><?=$customer_name?></b></span>
+                                            <span><b style="font-size: 12px;"><?=$customer_name?></b></span>
                                         </div>
                                         <div class="col-sm-3 cl3">
                                             <b>Address:</b>
@@ -97,7 +97,7 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                                         <div class="col-sm-3 cl3">
                                             <b>Cell #:</b>
                                         </div>
-                                        <div class="col-sm-3 cl3 field">
+                                        <div class="col-sm-9 cl9 field">
                                             <span><?=$customer_mobile?></span>
                                         </div>
                                         <!-- <div class="col-sm-3 cl3">
@@ -112,12 +112,12 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                                         <div class="col-sm-3 cl3 field">
                                             <span><?=$route?></span>
                                         </div> -->
-                                        <div class="col-sm-3 cl3">
+                                        <!-- <div class="col-sm-3 cl3">
                                             <b>C.Balance:</b>
                                         </div>
                                         <div class="col-sm-9 cl3 field">
                                             <span>test test</span>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="col-sm-6 text-left" style="padding: 0px;width: 38%;display: inline-block; font-size: 8px;">
                                         <div class="text-center extra-bolder">DUE DATES</div>
@@ -175,7 +175,6 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                                             <th class="text-center no-border extra-bolder">Disc. %</th>
                                             <th class="text-center no-border extra-bolder">Tot. Disc</th>
                                             <th class="text-center no-border extra-bolder">Net Amount</th>
-
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -199,32 +198,52 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                                                 <td class="emptyColumn"></td>
                                                 <td class="emptyColumn"></td>
                                             </tr>
-                                            <? foreach ($invoice_all_data[$k] as $k2 => $v2) {?>
-                                                <?php $totalQty = 0;?>
-                                                <? foreach ($invoice_all_data[$k][$k2] as $k3 => $v3) { $totalQty+= $v3['quantity'];?>
-                                                <tr>
-                                                    <td class="text-center"><?=++$i;?></td>
-                                                    <td class="text-center header"><?=$v3['product_name']." - 
-                                                    (".$v3['product_model'].")"?></td>
-                                                    <td class="text-center"><?=$v3['quantity']?> <?=$v3['unit']?></td>
-                                                    <td class="text-center"><?=$v3['rate']?></td>
-                                                    <td class="text-center"><?=$v3['total_price']?></td>
-                                                    <td class="text-center"><?php if($v3['discount_per'] == '')
-                                                    {
-                                                        echo '0%';
-                                                    } 
-                                                    else
-                                                    {
-                                                        echo $v3['discount_per'];
-                                                    }?></td>
-                                                    <td class="text-center"><?=($v3['total_price'] / 100) * $v3['discount_per']?></td>
-                                                    <td class="text-center"><?=$v3['total_price'] - (($v3['total_price'] / 100) * $v3['discount_per'])?></td>
-                                                    <?php 
-                                                    $netAmount += ($v3['total_price'] - (($v3['total_price'] / 100) * $v3['discount_per']));
-                                                    $totalDiscount += (($v3['total_price'] / 100) * $v3['discount_per']);
+                                            <? 
+                                                for($counter = 0; $counter < 3; $counter++){
+
+                                                //foreach ($invoice_all_data[$k] as $k2 => $v2) {
+                                                $totalQty = 0;
+                                                $unitToDisplay = "Drum";
+                                                if($counter == 0)
+                                                    $unitToDisplay = "Drum";
+                                                else if($counter == 1)
+                                                    $unitToDisplay = "Gallon";
+                                                else if($counter == 2)
+                                                    $unitToDisplay = "Quarter";
+                                                $k2 = $unitToDisplay;
+                                                $v2 = $invoice_all_data[$k][$unitToDisplay];
+                                                if(!isset($v2))
+                                                    continue;
+                                                //echo '<pre>kashif';print_r($v2);die;
+                                                    foreach ($v2 as $k3 => $v3) {
+                                                        $totalQty+= $v3['quantity'];
+                                                        $product_parts = explode("-", $v3['product_name']);
+                                                        $product_shade = substr($v3['product_id'], 1, strlen($v3['product_id']));
+                                                        $product_shade .= " ";
+                                                        $product_shade .= substr($product_parts[1], 0, strpos($product_parts[1], '('));
                                                     ?>
-                                                </tr>
-                                            <? } ?>
+                                                    <tr>
+                                                        <td class="text-center"><?=++$i;?></td>
+                                                        <td class="text-left header"><?=$product_shade?></td>
+                                                        <td class="text-center"><?=$v3['quantity']?> <?=$v3['unit']?></td>
+                                                        <td class="text-right"><?=$v3['rate']?></td>
+                                                        <td class="text-right"><?=$v3['total_price']?></td>
+                                                        <td class="text-right"><?php if($v3['discount_per'] == '')
+                                                        {
+                                                            echo '0%';
+                                                        } 
+                                                        else
+                                                        {
+                                                            echo $v3['discount_per'];
+                                                        }?></td>
+                                                        <td class="text-right"><?=($v3['total_price'] / 100) * $v3['discount_per']?></td>
+                                                        <td class="text-right"><?=$v3['total_price'] - (($v3['total_price'] / 100) * $v3['discount_per'])?></td>
+                                                        <?php 
+                                                        $netAmount += ($v3['total_price'] - (($v3['total_price'] / 100) * $v3['discount_per']));
+                                                        $totalDiscount += (($v3['total_price'] / 100) * $v3['discount_per']);
+                                                        ?>
+                                                    </tr>
+                                            <? } //}?>
                                             <tr style="font-family: inherit;">
                                                 <td class="emptyColumn eachCatCount"></td>
                                                 <td class="emptyColumn eachCatCount header extra-bolder">

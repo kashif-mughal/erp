@@ -820,7 +820,6 @@ class Cinvoice extends CI_Controller {
     }
 
     public function insert_sale_order(){
-
         $CI = & get_instance();
         $CI->auth->check_admin_auth();
         $CI->load->library('Linvoice');
@@ -944,7 +943,8 @@ class Cinvoice extends CI_Controller {
         $discount_rate = $this->input->post('discount_amount');
         $discount_per = $this->input->post('discount');
         $tax_amount = $this->input->post('tax');
-
+        $all_product_ids = $this->input->post('product_uuid');
+        
 //die("here....");
         for ($i = 0, $n = count($p_id); $i < $n; $i++) {
 
@@ -958,7 +958,7 @@ class Cinvoice extends CI_Controller {
             $disper = $discount_per[$i];
             $discount = is_numeric($product_quantity) * is_numeric($product_rate) * is_numeric($disper) / 100;
             $tax = $tax_amount[$i];
-
+            $product_uuid = $all_product_ids[$i];
 
 
             $data1 = array(
@@ -976,8 +976,8 @@ class Cinvoice extends CI_Controller {
                 'due_amount' => $this->input->post('due_amount'),
                 'supplier_rate' => "0",
                 'total_price' => $total_price,
-                'status' => 1
-
+                'status' => 1,
+                'product_uuid' => $product_uuid
             );
 
             if (!empty($quantity)) {
@@ -1257,6 +1257,7 @@ class Cinvoice extends CI_Controller {
 
     public function sale_order_detail($invoice){
 
+
         $CI = & get_instance();
 
         $CI->load->model('Invoices');
@@ -1265,7 +1266,7 @@ class Cinvoice extends CI_Controller {
 
         $CI->load->library('occational');
 
-        $invoice_detail = $CI->Invoices->retrieve_invoice_html_data($invoice_id);
+        //$invoice_detail = $CI->Invoices->retrieve_invoice_html_data($invoice_id);
 
         $this->db->select('a.total_tax,
 
@@ -1291,7 +1292,6 @@ class Cinvoice extends CI_Controller {
         $this->db->from('sale_order a');
 
 
-
         $this->db->join('sale_order_details c', 'c.invoice_id = a.invoice');
 
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id');
@@ -1313,8 +1313,6 @@ class Cinvoice extends CI_Controller {
             $invoice_detail =  $query->result_array();
 
         }
-
-        //print_r($invoice_detail);die;
 
         $subTotal_quantity = 0;
 
@@ -1357,14 +1355,30 @@ class Cinvoice extends CI_Controller {
         $company_info = $CI->Invoices->retrieve_company();
         $categoriesGroup = array();
 
+        // foreach ($invoice_detail as $k => $v) {
+        //     if(is_null($categoriesGroup[$invoice_detail[$k]['category_name']])){
+        //         $categoriesGroup[$invoice_detail[$k]['category_name']] = array();
+        //     }
+        //     if(is_null($categoriesGroup[$invoice_detail[$k]['category_name']][$v['unit']])){
+        //         $categoriesGroup[$invoice_detail[$k]['category_name']][$v['unit']] = array();
+        //     }
+        //     array_push($categoriesGroup[$invoice_detail[$k]['category_name']][$v['unit']], $v);
+        // }
         foreach ($invoice_detail as $k => $v) {
-            if(is_null($categoriesGroup[$invoice_detail[$k]['category_name']])){
-                $categoriesGroup[$invoice_detail[$k]['category_name']] = array();
+            $product_parts = explode("-", $invoice_detail[$k]['product_name']);
+            $product_name =  $product_parts[0];
+            if(is_null($categoriesGroup[$product_name])){
+                $categoriesGroup[$product_name] = array();
             }
-            if(is_null($categoriesGroup[$invoice_detail[$k]['category_name']][$v['unit']])){
-                $categoriesGroup[$invoice_detail[$k]['category_name']][$v['unit']] = array();
+            //$product_parts = explode("-", $invoice_detail[$k]['product_name']);
+            //$product_name =  $product_parts[0];
+            // $product_shade = substr($invoice_detail[$k]['product_id'], 1, strlen($invoice_detail[$k]['product_id']));
+            // $product_shade .= " ";
+            // $product_shade .= explode(" ", $product_parts[1])[0];
+            if(is_null($categoriesGroup[$product_name][$v['unit']])){
+                $categoriesGroup[$product_name][$v['unit']] = array();
             }
-            array_push($categoriesGroup[$invoice_detail[$k]['category_name']][$v['unit']], $v);
+            array_push($categoriesGroup[$product_name][$v['unit']], $v);
         }
         $data = array(
 
@@ -1413,6 +1427,7 @@ class Cinvoice extends CI_Controller {
             'position' => $currency_details[0]['currency_position'],
 
             'discount_type' => $currency_details[0]['discount_type'],
+
             'content' => 'invoice/sale_order_html'
 
         );
@@ -1424,9 +1439,6 @@ class Cinvoice extends CI_Controller {
 
       //  $chapterList = $CI->parser->parse('invoice/sale_order_html', $data, true);
     }
-
-
-
 
 }
 

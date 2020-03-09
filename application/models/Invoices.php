@@ -1257,6 +1257,12 @@ class Invoices extends CI_Model {
 
         //$this->db->join('product_information d', 'd.product_id = c.product_id');
 
+//         select a.total_tax, a.*, ei.employee_vehicle salesman, ei.employee_vehicle, pc.category_name, b.*, c.*, d.product_id,
+// d.product_name, d.product_details, d.unit, d.product_model from invoice a join invoice_details c on
+// c.invoice_id = a.invoice_id join customer_information b on b.customer_id = a.customer_id join
+// product_information d on d.product_uuid = c.product_uuid join product_category pc on pc.category_id = d.category_id
+// join employee_information ei on ei.employee_id = b.employee_id where a.invoice_id = '8176251517' and c.quantity > 0
+
         $this->db->join('product_information d', 'd.product_uuid = c.product_uuid');
 
         $this->db->join('product_category pc', 'pc.category_id = d.category_id');
