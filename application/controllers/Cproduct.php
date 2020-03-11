@@ -1184,7 +1184,7 @@ class Cproduct extends CI_Controller {
             'sub_product'=>'0',
             'status' => 1
         );
-       $this->db->insert('product_information', $data);
+        $this->db->insert('product_information', $data);
         for ($i = 0; $i < count($item_code);  $i++) 
         {
             $code = $item_code[$i];
@@ -1207,7 +1207,7 @@ class Cproduct extends CI_Controller {
                 'image' => (!empty($image_url) ? $image_url : base_url('my-assets/image/product.png')),
                 'sub_product'=>$product_model,
                 'status' => 1,
-                'special' => $each_special
+                'special' => $each_special == "1" ? true : false
 
             );
             $this->db->insert('product_information', $supp_prd);
@@ -1227,7 +1227,7 @@ class Cproduct extends CI_Controller {
                 'image' => (!empty($image_url) ? $image_url : base_url('my-assets/image/product.png')),
                 'sub_product'=>$product_model,
                 'status' => 1,
-                'special' => $each_special
+                'special' => $each_special == "1" ? true : false
 
             );
             $this->db->insert('product_information', $supp_prd);
@@ -1249,7 +1249,7 @@ class Cproduct extends CI_Controller {
                 'image' => (!empty($image_url) ? $image_url : base_url('my-assets/image/product.png')),
                 'sub_product' =>$product_model,
                 'status' => 1,
-                'special' => $each_special
+                'special' => $each_special == "1" ? true : false
 
             );
 
@@ -1329,7 +1329,6 @@ class Cproduct extends CI_Controller {
     // Product Update
 
     public function item_update() {
-
         $CI = & get_instance();
 
         $CI->auth->check_admin_auth();
@@ -1426,7 +1425,7 @@ class Cproduct extends CI_Controller {
         $item_quarter = $this->input->post('item_quarter');
         $item_drum = $this->input->post('item_drum');
         $price = $this->input->post('price');
-
+        $special = $this->input->post('special');
 
         for ($i = 0; $i < count($item_code);  $i++) 
         {
@@ -1436,7 +1435,7 @@ class Cproduct extends CI_Controller {
             $drum = $item_drum[$i];
             $quarter = $item_quarter[$i];
             $gallon = $item_gallon[$i];       
-
+            $each_special = $special[$i];
             
             $supp_prd = array(
 
@@ -1451,7 +1450,8 @@ class Cproduct extends CI_Controller {
                 'product_details' => $this->input->post('description'),
                 'image' => (!empty($image_url) ? $image_url : base_url('my-assets/image/product.png')),
                 'sub_product'=>$product_model,
-                'status' => 1
+                'status' => 1,
+                'special' => $each_special == "1" ? true : false
 
             );
 
@@ -1473,7 +1473,8 @@ class Cproduct extends CI_Controller {
                 'product_details' => $this->input->post('description'),
                 'image' => (!empty($image_url) ? $image_url : base_url('my-assets/image/product.png')),
                 'sub_product'=>$product_model,
-                'status' => 1
+                'status' => 1,
+                'special' => $each_special == "1" ? true : false
 
             );
 
@@ -1493,7 +1494,8 @@ class Cproduct extends CI_Controller {
                 'product_details' => $this->input->post('description'),
                 'image' => (!empty($image_url) ? $image_url : base_url('my-assets/image/product.png')),
                 'sub_product' =>$product_model,
-                'status' => 1
+                'status' => 1,
+                'special' => $each_special == "1" ? true : false
 
             );
 

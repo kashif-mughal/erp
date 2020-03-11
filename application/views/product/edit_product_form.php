@@ -1,5 +1,4 @@
 <script src="<?php echo base_url() ?>my-assets/js/admin_js/json/product.js" type="text/javascript"></script>
-
 <!-- Edit Product Start -->
 
 <div class="content-wrapper">

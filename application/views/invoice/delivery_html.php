@@ -185,6 +185,7 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                                         $totalDozen=0.00;
                                         $netAmount=0.00;
                                         $totalDiscount=0.00;
+                                        //echo '<pre>';print_r($invoice_all_data);die;
                                         foreach($invoice_all_data as $k => $v){ ?>
                                             <tr style="font-family: inherit; border-bottom: 2px solid black; border-top: none;">
                                                 <td class="emptyColumn"></td>

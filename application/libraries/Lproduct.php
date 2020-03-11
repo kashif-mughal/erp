@@ -13,7 +13,7 @@ class Lproduct {
         $CI->load->model('Products');
         $CI->load->model('Web_settings');
         $products_list = $CI->Products->product_list($per_page, $page);
-        $all_product_list = $CI->Products->all_product_list();
+        $all_product_list = $CI->Products->product_list_for_dropdown();
 
 
         $i = 0;
@@ -129,7 +129,7 @@ class Lproduct {
         $CI->load->model('Products');
         $CI->load->model('Web_settings');
         $products_list = $CI->Products->product_search_item($product_id);
-        $all_product_list = $CI->Products->all_product_list();
+        $all_product_list = $CI->Products->product_list_for_dropdown();
 
         $i = 0;
         if ($products_list) {

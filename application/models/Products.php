@@ -16,7 +16,7 @@ class Products extends CI_Model {
 
     //Product List
     public function product_list($per_page, $page) {
-        $query = $this->db->select('product_information.*')
+        $query = $this->db->select('product_information.*, product_information.product_id p_id')
                 ->from('product_information')
                 ->where('sub_product','0')
                 ->order_by('product_information.product_id', 'desc')
@@ -41,6 +41,19 @@ class Products extends CI_Model {
         }
         return false;
     }
+
+    public function product_list_for_dropdown() {
+        $query = $this->db->select('product_model, product_id, product_name')
+                ->from('product_information')
+                ->where('sub_product', '0')
+                ->order_by('product_information.product_id', 'desc')
+                ->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return false;
+    }
+
 
     //Product List
     public function product_list_count() {
@@ -217,7 +230,7 @@ class Products extends CI_Model {
     //Product By Search 
     public function product_search_item($product_id) {
 
-        $query = $this->db->select('supplier_information.*,product_information.*,supplier_product.*')
+        $query = $this->db->select('product_information.product_id p_id, supplier_information.*,product_information.*,supplier_product.*')
                 ->from('product_information')
                 ->join('supplier_product', 'product_information.product_id = supplier_product.product_id', 'left')
                 ->join('supplier_information', 'supplier_product.supplier_id = supplier_information.supplier_id', 'left')

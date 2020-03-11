@@ -341,10 +341,13 @@
                                    <?php foreach($sub_products as $code => $values){?>
                                     <tr class="">
                                         <td>
-                                           <input style="margin-top: 0px;" type="checkbox" tabindex="9" class="form-control text-right" name="special[]" <?php if($values['special'] == 1){echo 'checked';}?>/>
+                                            <select tabindex="9" style="border: 1px solid #dadada;height: 33px;width: 50px;" name="special[]">
+                                                <option value="0" <?php if($values['special'] == 0){echo 'selected';}?>>No</option>
+                                                <option value="1" <?php if($values['special'] == 1){echo 'selected';}?>>Yes</option>
+                                            </select>
                                         </td>
                                         <td>
-                                           <input type="text" tabindex="9" class="form-control text-right" name="item_code[]" placeholder="Code" value='<?=$code?>'    min="0"/>
+                                           <input type="text" tabindex="9" class="form-control text-right" name="item_code[]" placeholder="Code" value='<?=$code?>'/>
                                         </td>
                                         <td class="">
                                             <input type="text" tabindex="9" class="form-control text-right" name="item_color[]" placeholder="Color" value='<?=$values['color']?>'    />

@@ -183,7 +183,10 @@
                                 <tbody id="proudt_item">
                                     <tr class="">
                                         <td>
-                                           <input style="margin-top: 0px;" type="checkbox" tabindex="9" class="form-control text-right" name="special[]"/>
+                                            <select tabindex="9" style="border: 1px solid #dadada;height: 33px;width: 50px;" name="special[]">
+                                                <option value="0">No</option>
+                                                <option value="1">Yes</option>
+                                            </select>
                                         </td>
                                         <td>
                                            <input type="text" tabindex="9" class="form-control text-right" name="item_code[]" placeholder="Code"    min="0"/>
