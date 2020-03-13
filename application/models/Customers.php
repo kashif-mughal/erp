@@ -30,7 +30,7 @@ class Customers extends CI_Model {
     //customer List
     public function customer_list($per_page = null, $page = null) {
         $this->db->select('customer_information.*,
-			CAST(sum(customer_transection_summary.amount) AS DECIMAL(16,2)) as customer_balance
+			-CAST(sum(customer_transection_summary.amount) AS DECIMAL(16,2)) as customer_balance
 			');
         $this->db->from('customer_information');
         $this->db->join('customer_transection_summary', 'customer_transection_summary.customer_id= customer_information.customer_id');

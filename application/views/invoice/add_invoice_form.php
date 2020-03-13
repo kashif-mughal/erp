@@ -172,7 +172,7 @@
                                         ?> <i class="text-danger">*</i></label>
                                     <div class="col-sm-6">
                                         <select class='form-control' name="customer_id" tabindex="5" required id="customer_id">
-                                            <option>--Select Customer--</option>
+                                            <option value="">--Select Customer--</option>
                                             {customer_list}
                                                 <option value="{customer_id}">{customer_name}</option>
                                             {/customer_list}

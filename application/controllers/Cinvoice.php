@@ -1024,10 +1024,6 @@ class Cinvoice extends CI_Controller {
 
         $CI->auth->check_admin_auth();
 
-        $CI->load->library('linvoice');
-
-        $content = $CI->linvoice->invoice_html_data($invoice_id);
-
         $CI = & get_instance();
 
         $CI->load->model('Invoices');
@@ -1160,7 +1156,7 @@ class Cinvoice extends CI_Controller {
 
             'route' => empty($invoice_detail[0]['route']) ? "N/A" : $invoice_detail[0]['route'],
 
-            'salesman' => $invoice_detail[0]['salesman'],
+            'salesman' => empty($invoice_detail[0]['salesman']) ? "N/A" : $invoice_detail[0]['salesman'],
             
             'content' => "invoice/delivery_html",
             
@@ -1289,6 +1285,8 @@ class Cinvoice extends CI_Controller {
 
                         c.*,
 
+                        d.special,
+
                         d.product_id,
 
                         d.product_name,
@@ -1374,20 +1372,29 @@ class Cinvoice extends CI_Controller {
         //     array_push($categoriesGroup[$invoice_detail[$k]['category_name']][$v['unit']], $v);
         // }
         foreach ($invoice_detail as $k => $v) {
-            $product_parts = explode("-", $invoice_detail[$k]['product_name']);
-            $product_name =  $product_parts[0];
-            if(is_null($categoriesGroup[$product_name])){
-                $categoriesGroup[$product_name] = array();
+            if($invoice_detail[$k]['special']){
+                $product_parts = explode("-", $invoice_detail[$k]['product_name']);
+                $product_name =  $product_parts[0];
+                $product_name .= " Special Shade";
+                if(is_null($categoriesGroup[$product_name])){
+                    $categoriesGroup[$product_name] = array();
+                }
+                if(is_null($categoriesGroup[$product_name][$v['unit']])){
+                    $categoriesGroup[$product_name][$v['unit']] = array();
+                }
+                array_push($categoriesGroup[$product_name][$v['unit']], $v);
             }
-            //$product_parts = explode("-", $invoice_detail[$k]['product_name']);
-            //$product_name =  $product_parts[0];
-            // $product_shade = substr($invoice_detail[$k]['product_id'], 1, strlen($invoice_detail[$k]['product_id']));
-            // $product_shade .= " ";
-            // $product_shade .= explode(" ", $product_parts[1])[0];
-            if(is_null($categoriesGroup[$product_name][$v['unit']])){
-                $categoriesGroup[$product_name][$v['unit']] = array();
+            else{
+                $product_parts = explode("-", $invoice_detail[$k]['product_name']);
+                $product_name =  $product_parts[0];
+                if(is_null($categoriesGroup[$product_name])){
+                    $categoriesGroup[$product_name] = array();
+                }
+                if(is_null($categoriesGroup[$product_name][$v['unit']])){
+                    $categoriesGroup[$product_name][$v['unit']] = array();
+                }
+                array_push($categoriesGroup[$product_name][$v['unit']], $v);
             }
-            array_push($categoriesGroup[$product_name][$v['unit']], $v);
         }
         $data = array(
 

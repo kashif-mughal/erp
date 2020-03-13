@@ -350,7 +350,7 @@ class Products extends CI_Model {
         return false;
     }
     public function update_cache_file(){
-        $query = $this->db->query("SELECT * from product_information");
+        $query = $this->db->query("SELECT * from product_information where sub_product <> '0'");
         foreach ($query->result() as $row) {
             $json_product[] = array('label' => "(". $row->product_id .")-" . $row->product_name, 'value' => $row->product_id, 'sub_product' => $row->sub_product, 'product_uuid' => $row->product_uuid);
         }

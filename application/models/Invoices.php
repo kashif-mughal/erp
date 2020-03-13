@@ -587,7 +587,6 @@ class Invoices extends CI_Model {
             redirect('Cinvoice/pos_invoice');
 
         }
-
         if (($this->input->post('customer_name_others') == null) && ($this->input->post('customer_id') == null ) && ($this->input->post('customer_name') == null )) {
 
             $this->session->set_userdata(array('error_message' => display('please_select_customer')));
@@ -595,8 +594,7 @@ class Invoices extends CI_Model {
             redirect(base_url() . 'Cinvoice');
 
         }
-
-        if (($this->input->post('customer_id') == null ) && ($this->input->post('customer_name') == null )) {
+        if (empty($this->input->post('customer_id')) && ($this->input->post('customer_name') == null )) {
 
             $customer_id = $this->auth->generator(15);
 
@@ -1269,7 +1267,7 @@ class Invoices extends CI_Model {
 
         $this->db->join('product_category pc', 'pc.category_id = d.category_id');
 
-        $this->db->join('employee_information ei', 'ei.employee_id = b.employee_id');
+        $this->db->join('employee_information ei', 'ei.employee_id = b.employee_id', "left");
 
         $this->db->where('a.invoice_id', $invoice_id);
 

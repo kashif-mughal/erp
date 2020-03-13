@@ -16,11 +16,11 @@
     //Bank Information Show
     function bank_info_show(payment_type)
     {
-        if(payment_type.value=="1"){
-            document.getElementById("bank_info_hide").style.display="none";
+        if(payment_type.value=="2"){
+            document.getElementById("bank_info_hide").style.display="block";
         }
         else{ 
-            document.getElementById("bank_info_hide").style.display="block";  
+            document.getElementById("bank_info_hide").style.display="none";
         }
     }
 
@@ -202,7 +202,8 @@
                                <select onchange="bank_info_show(this)" name="payment_type" id="payment_type" class="form-control">
                                     <option value="1"> <?php echo display('cash') ?> </option>
                                     <option value="2"> <?php echo display('cheque') ?> </option>
-                                    <option value="3"> <?php echo display('pay_order') ?> </option>
+                                    <option value="3"> Token </option>
+                                    <option value="4"> Discount </option>
                                 </select>
                             </div>
 

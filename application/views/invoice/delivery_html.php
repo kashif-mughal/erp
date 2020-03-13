@@ -162,7 +162,8 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                                     </div>
                                 </div>
                             </div>
-
+                        </div>
+                        <div class="panel-body">
                             <div class="table-responsive m-b-20" id="mainTable" style="font-size: 10px;">
                                 <table class="table table-striped">
                                     <thead>
@@ -200,7 +201,7 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                                                 <td class="emptyColumn"></td>
                                             </tr>
                                             <? 
-                                                for($counter = 0; $counter < 3; $counter++){
+                                            for($counter = 0; $counter < 3; $counter++){
 
                                                 //foreach ($invoice_all_data[$k] as $k2 => $v2) {
                                                 $totalQty = 0;
@@ -216,12 +217,12 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                                                 if(!isset($v2))
                                                     continue;
                                                 //echo '<pre>kashif';print_r($v2);die;
-                                                    foreach ($v2 as $k3 => $v3) {
-                                                        $totalQty+= $v3['quantity'];
-                                                        $product_parts = explode("-", $v3['product_name']);
-                                                        $product_shade = substr($v3['product_id'], 1, strlen($v3['product_id']));
-                                                        $product_shade .= " ";
-                                                        $product_shade .= substr($product_parts[1], 0, strpos($product_parts[1], '('));
+                                                foreach ($v2 as $k3 => $v3) {
+                                                    $totalQty+= $v3['quantity'];
+                                                    $product_parts = explode("-", $v3['product_name']);
+                                                    $product_shade = substr($v3['product_id'], 1, strlen($v3['product_id']));
+                                                    $product_shade .= " ";
+                                                    $product_shade .= substr($product_parts[1], 0, strpos($product_parts[1], '('));
                                                     ?>
                                                     <tr>
                                                         <td class="text-center"><?=++$i;?></td>
@@ -244,222 +245,222 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                                                         $totalDiscount += (($v3['total_price'] / 100) * $v3['discount_per']);
                                                         ?>
                                                     </tr>
-                                            <? } //}?>
-                                            <tr style="font-family: inherit;">
-                                                <td class="emptyColumn eachCatCount"></td>
-                                                <td class="emptyColumn eachCatCount header extra-bolder">
-                                                    <?=$totalQty."   ".$k2?>
-                                                </td>
-                                                <td class="emptyColumn eachCatCount"></td>
-                                                <td class="emptyColumn eachCatCount"></td>
-                                                <td class="emptyColumn eachCatCount"></td>
-                                                <td class="emptyColumn eachCatCount"></td>
-                                                <td class="emptyColumn eachCatCount"></td>
-                                                <td class="emptyColumn eachCatCount"></td>
-                                            </tr>
-                                            <?php 
-                                            if(strtolower($k2) == "drum"){
-                                                $totalDrum += $totalQty;
-                                            }
-                                            if(strtolower($k2) == "gallon"){
-                                                $totalGallon += $totalQty;
-                                            }
-                                            if(strtolower($k2) == "quarter"){
-                                                $totalQuarter += $totalQty;
-                                            }
-                                            if(strtolower($k2) == "dozen"){
-                                                $totalDozen += $totalQty;
-                                            }
-                                            ?>
+                                                <? } //}?>
+                                                <tr style="font-family: inherit;">
+                                                    <td class="emptyColumn eachCatCount"></td>
+                                                    <td class="emptyColumn eachCatCount header extra-bolder">
+                                                        <?=$totalQty."   ".$k2?>
+                                                    </td>
+                                                    <td class="emptyColumn eachCatCount"></td>
+                                                    <td class="emptyColumn eachCatCount"></td>
+                                                    <td class="emptyColumn eachCatCount"></td>
+                                                    <td class="emptyColumn eachCatCount"></td>
+                                                    <td class="emptyColumn eachCatCount"></td>
+                                                    <td class="emptyColumn eachCatCount"></td>
+                                                </tr>
+                                                <?php 
+                                                if(strtolower($k2) == "drum"){
+                                                    $totalDrum += $totalQty;
+                                                }
+                                                if(strtolower($k2) == "gallon"){
+                                                    $totalGallon += $totalQty;
+                                                }
+                                                if(strtolower($k2) == "quarter"){
+                                                    $totalQuarter += $totalQty;
+                                                }
+                                                if(strtolower($k2) == "dozen"){
+                                                    $totalDozen += $totalQty;
+                                                }
+                                                ?>
+                                            <? } ?>
                                         <? } ?>
-                                    <? } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        <style type="text/css">
-                            .table-striped>tbody>tr:nth-of-type(odd) {
-                                background-color: transparent;
-                            }
-                            .no-border{
-                                border: none !important;
-                            }
-                            .extra-bolder{
-                                font-weight: 800 !important;
-                            }
-                            .emptyColumn{
-                                border-right: none !important;
-                                border-left: none !important;
-                                background: white;
-                            }
-                            .eachCatCount{
-                                text-align: right;
-                            }
-                            .header{
-                                font-weight: bold;
-                            }
-                            .catHeading{
-                                font-size: 20px;
-                                font-style: italic;
-                            }
-                            .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
-                                /*border: none;*/
-                                /*#e4e5e7*/
-                                border:1px solid darkgrey;
-                                border-right: 1px solid #5d5d5d;
-                            }
-                            hr{
-                                border-top: 3px solid #e1e6ef;
-                            }
-                            .normalTd{
-                                text-align: center;
-                            }
-                            .inlineDiv{
-                                display: inline-block;
-                            }
-                            .topSolid{
-                                border-top: 2px solid;
-                            }
-                            .cl2{
-                                display: inline-block;
-                                width: 15.666666666666%;
-                                padding: 0px;
-                            }
-                            .cl3{
-                                display: inline-block;
-                                width: 24%;
-                                padding: 0px;
-                            }
-                            .cl4{
-                                display: inline-block;
-                                width: 32.33333333333%;
-                                padding: 0px;
-                            }
-                            .cl9{
-                                display: inline-block;
-                                width: 72%;
-                                padding: 0px;
-                            }
-                            .field{
-                                border-bottom: 1px solid black;
-                                /*margin: 0 10px;*/
-                                display: inline-block;
-                                padding: 0px;
-                            }
-                            .invoice-title{
-                                text-align: center;
-                            }
-                            .invoice-title span{
-                                border: 1px solid black;
-                                padding: 10px 30px;
-                                line-height: 83px;
-                                font-size: 24px;
-                                font-style: italic;
-                                font-family: cursive;
-                            }
-                            .sign-area{
-                                display: inline-block;width: 33.333333333%
-                            }
-                            .sign-area div{
-                                float: left;
-                                text-align: center;
-                                border-top: 1px solid darkgrey;
-                                margin-top: 110px;
-                                font-weight: bold;
-                            }
-                        </style>
-                        <div class="row" style="position: relative; font-size: 11px;">
-                            <div class="col-md-5 inlineDiv" style="padding-right: 5px;width: 41.6666666666%;">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr class="topSolid">
-                                            <th class="normalTd">Drum</th>
-                                            <th class="normalTd">Gallon</th>
-                                            <th class="normalTd">Quarter</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="normalTd"><?=number_format((float)$totalDrum, 2, '.', '')?></td>
-                                            <td class="normalTd"><?=number_format((float)$totalGallon, 2, '.', '')?></td>
-                                            <td class="normalTd"><?=number_format((float)$totalQuarter, 2, '.', '')?></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="normalTd"><?=number_format((float)$totalDrum * 14.56, 2, '.', '')?></td>
-                                            <td class="normalTd"><?=number_format((float)$totalGallon * 3.64, 2, '.', '')?></td>
-                                            <td class="normalTd"><?=number_format((float)$totalQuarter * 0.9, 2, '.', '')?></td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-md-3 inlineDiv" style="padding-left: 0px;width: 25%;">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr class="topSolid">
-                                            <th class="text-center normalTd">Total Quantity</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="normalTd normalTd"><?=number_format((float)(number_format((float)$totalDrum, 2, '.', '') + number_format((float)$totalGallon, 2, '.', '') + number_format((float)$totalQuarter, 2, '.', '')), 2, '.', '')?></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="normalTd normalTd"><?=number_format((float)(number_format((float)$totalDrum * 14.56, 2, '.', '') + number_format((float)$totalGallon * 3.64, 2, '.', '') + number_format((float)$totalQuarter * 0.9, 2, '.', '')), 2, '.', '')?></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <style type="text/css">
+                                .table-striped>tbody>tr:nth-of-type(odd) {
+                                    background-color: transparent;
+                                }
+                                .no-border{
+                                    border: none !important;
+                                }
+                                .extra-bolder{
+                                    font-weight: 800 !important;
+                                }
+                                .emptyColumn{
+                                    border-right: none !important;
+                                    border-left: none !important;
+                                    background: white;
+                                }
+                                .eachCatCount{
+                                    text-align: right;
+                                }
+                                .header{
+                                    font-weight: bold;
+                                }
+                                .catHeading{
+                                    font-size: 20px;
+                                    font-style: italic;
+                                }
+                                .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+                                    /*border: none;*/
+                                    /*#e4e5e7*/
+                                    border:1px solid darkgrey;
+                                    border-right: 1px solid #5d5d5d;
+                                }
+                                hr{
+                                    border-top: 3px solid #e1e6ef;
+                                }
+                                .normalTd{
+                                    text-align: center;
+                                }
+                                .inlineDiv{
+                                    display: inline-block;
+                                }
+                                .topSolid{
+                                    border-top: 2px solid;
+                                }
+                                .cl2{
+                                    display: inline-block;
+                                    width: 15.666666666666%;
+                                    padding: 0px;
+                                }
+                                .cl3{
+                                    display: inline-block;
+                                    width: 24%;
+                                    padding: 0px;
+                                }
+                                .cl4{
+                                    display: inline-block;
+                                    width: 32.33333333333%;
+                                    padding: 0px;
+                                }
+                                .cl9{
+                                    display: inline-block;
+                                    width: 72%;
+                                    padding: 0px;
+                                }
+                                .field{
+                                    border-bottom: 1px solid black;
+                                    /*margin: 0 10px;*/
+                                    display: inline-block;
+                                    padding: 0px;
+                                }
+                                .invoice-title{
+                                    text-align: center;
+                                }
+                                .invoice-title span{
+                                    border: 1px solid black;
+                                    padding: 10px 30px;
+                                    line-height: 83px;
+                                    font-size: 24px;
+                                    font-style: italic;
+                                    font-family: cursive;
+                                }
+                                .sign-area{
+                                    display: inline-block;width: 33.333333333%
+                                }
+                                .sign-area div{
+                                    float: left;
+                                    text-align: center;
+                                    border-top: 1px solid darkgrey;
+                                    margin-top: 110px;
+                                    font-weight: bold;
+                                }
+                            </style>
+                            <div class="row" style="position: relative; font-size: 11px;">
+                                <div class="col-md-5 inlineDiv" style="padding-right: 5px;width: 41.6666666666%;">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr class="topSolid">
+                                                <th class="normalTd">Drum</th>
+                                                <th class="normalTd">Gallon</th>
+                                                <th class="normalTd">Quarter</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="normalTd"><?=number_format((float)$totalDrum, 2, '.', '')?></td>
+                                                <td class="normalTd"><?=number_format((float)$totalGallon, 2, '.', '')?></td>
+                                                <td class="normalTd"><?=number_format((float)$totalQuarter, 2, '.', '')?></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="normalTd"><?=number_format((float)$totalDrum * 14.56, 2, '.', '')?></td>
+                                                <td class="normalTd"><?=number_format((float)$totalGallon * 3.64, 2, '.', '')?></td>
+                                                <td class="normalTd"><?=number_format((float)$totalQuarter * 0.9, 2, '.', '')?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-3 inlineDiv" style="padding-left: 0px;width: 25%;">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr class="topSolid">
+                                                <th class="text-center normalTd">Total Quantity</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="normalTd normalTd"><?=number_format((float)(number_format((float)$totalDrum, 2, '.', '') + number_format((float)$totalGallon, 2, '.', '') + number_format((float)$totalQuarter, 2, '.', '')), 2, '.', '')?></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="normalTd normalTd"><?=number_format((float)(number_format((float)$totalDrum * 14.56, 2, '.', '') + number_format((float)$totalGallon * 3.64, 2, '.', '') + number_format((float)$totalQuarter * 0.9, 2, '.', '')), 2, '.', '')?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-2 inlineDiv" style="padding-left: 0px;text-align: right;width: 16.6666666666%;position: absolute;bottom: 20px;">
+                                    <div>
+                                        <span class="header">Total :</span>
+                                    </div>
+                                    <div>
+                                        <span class="header">Less Disc :</span>
+                                    </div>
+                                    <div>
+                                        <span class="header">Invoice Value :</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 inlineDiv" style="padding-left: 0px;text-align: right;width: 13.6666666666%;position: absolute; bottom: 20px;right: 0px;">
+                                    <div>
+                                        <span class="header"><?=$subTotal_ammount?></span>
+                                    </div>
+                                    <div>
+                                        <span class="header"><?=number_format($totalDiscount,2)?></span>
+                                    </div>
+                                    <div>
+                                        <span class="header"><?=number_format($netAmount,2)?></span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-2 inlineDiv" style="padding-left: 0px;text-align: right;width: 16.6666666666%;position: absolute;bottom: 20px;">
-                                <div>
-                                    <span class="header">Total :</span>
+                            <div class="row">
+                                <div class="col-xs-4 sign-area">
+                                    <div style="width: 65%;">
+                                        <span>Generated By</span>
+                                    </div>
                                 </div>
-                                <div>
-                                    <span class="header">Less Disc :</span>
+                                <div class="col-xs-4 sign-area">
+                                    <div style="width:70%;">
+                                        <span>Checked By</span>
+                                    </div>
                                 </div>
-                                <div>
-                                    <span class="header">Invoice Value :</span>
-                                </div>
-                            </div>
-                            <div class="col-md-2 inlineDiv" style="padding-left: 0px;text-align: right;width: 13.6666666666%;position: absolute; bottom: 20px;right: 0px;">
-                                <div>
-                                    <span class="header"><?=$subTotal_ammount?></span>
-                                </div>
-                                <div>
-                                    <span class="header"><?=number_format($totalDiscount,2)?></span>
-                                </div>
-                                <div>
-                                    <span class="header"><?=number_format($netAmount,2)?></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-4 sign-area">
-                                <div style="width: 65%;">
-                                    <span>Generated By</span>
-                                </div>
-                            </div>
-                            <div class="col-xs-4 sign-area">
-                                <div style="width:70%;">
-                                    <span>Checked By</span>
-                                </div>
-                            </div>
-                            <div class="col-xs-4 sign-area">
-                                <div style="width:65%;float: right;">
-                                    <span>Customer Sign</span>
+                                <div class="col-xs-4 sign-area">
+                                    <div style="width:65%;float: right;">
+                                        <span>Customer Sign</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="panel-footer text-left">
-                    <a  class="btn btn-danger" href="<?php echo base_url('Cinvoice'); ?>"><?php echo display('cancel') ?></a>
-                    <button  class="btn btn-info" onclick="printDiv('printableArea')"><span class="fa fa-print"></span></button>
+                    <div class="panel-footer text-left">
+                        <a  class="btn btn-danger" href="<?php echo base_url('Cinvoice'); ?>"><?php echo display('cancel') ?></a>
+                        <button  class="btn btn-info" onclick="printDiv('printableArea')"><span class="fa fa-print"></span></button>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section> <!-- /.content -->
+    </section> <!-- /.content -->
 </div> <!-- /.content-wrapper -->
 
 <script type="text/javascript">
