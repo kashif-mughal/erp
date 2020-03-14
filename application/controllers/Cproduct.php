@@ -505,9 +505,8 @@ class Cproduct extends CI_Controller {
 
         #pagination ends
 
-        #  
-
-        $content = $this->lproduct->product_list($links, $config["per_page"], $page);
+        # 
+        $content = $this->lproduct->product_list($links, $config["per_page"], $page, $this->input->post('category_id'));
 
 
 

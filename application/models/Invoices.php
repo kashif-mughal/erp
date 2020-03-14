@@ -553,6 +553,9 @@ class Invoices extends CI_Model {
 
         $invoice_id = strtoupper($invoice_id);
 
+        $CI = & get_instance();
+        $CI->load->model('Customers');
+
         $quantity = $this->input->post('product_quantity');
 
         $available_quantity = $this->input->post('available_quantity');
@@ -637,13 +640,9 @@ class Invoices extends CI_Model {
 
             file_put_contents($cache_file, $customerList);
 
-
-
-
-
             //Previous balance adding -> Sending to customer model to adjust the data.
 
-            $this->Customers->previous_balance_add(0, $customer_id);
+            $this->Customers->previous_balance_add(0, $customer_id, $this->input->post('customer_name_others'));
 
         } else {
             $customer_id = $this->input->post('customer_id');

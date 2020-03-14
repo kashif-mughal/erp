@@ -8,14 +8,12 @@ class Lproduct {
      * * Retrieve  Quize List From DB 
      */
 
-    public function product_list($links, $per_page, $page) {
+    public function product_list($links, $per_page, $page, $product_id = 0) {
         $CI = & get_instance();
         $CI->load->model('Products');
         $CI->load->model('Web_settings');
-        $products_list = $CI->Products->product_list($per_page, $page);
+        $products_list = $CI->Products->product_list($per_page, $page, $product_id);
         $all_product_list = $CI->Products->product_list_for_dropdown();
-
-
         $i = 0;
         if (!empty($products_list)) {
             foreach ($products_list as $k => $v) {
@@ -23,7 +21,10 @@ class Lproduct {
                 $products_list[$k]['sl'] = $i + $CI->uri->segment(3);
             }
         }
-
+        $all_categories = $CI->db->select('*')
+                ->from('product_category')
+                ->get()
+                ->result();
         $currency_details = $CI->Web_settings->retrieve_setting_editdata();
         $data = array(
             'title' => display('manage_product'),
@@ -32,6 +33,7 @@ class Lproduct {
             'links' => $links,
             'currency' => $currency_details[0]['currency'],
             'position' => $currency_details[0]['currency_position'],
+            'all_categories' => $all_categories
         );
 
         $productList = $CI->parser->parse('product/product', $data, true);

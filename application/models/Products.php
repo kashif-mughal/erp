@@ -15,13 +15,14 @@ class Products extends CI_Model {
     }
 
     //Product List
-    public function product_list($per_page, $page) {
-        $query = $this->db->select('product_information.*, product_information.product_id p_id')
-                ->from('product_information')
-                ->where('sub_product','0')
-                ->order_by('product_information.product_id', 'desc')
-                ->limit($per_page, $page)
-                ->get();
+    public function product_list($per_page, $page, $category_id = 0) {
+        $query = "SELECT pi.*, pi.product_id p_id, pc.category_name from product_information pi
+        join product_category pc on pi.category_id = pc.category_id
+        where pi.sub_product = '0' ";
+        if($category_id != 0)
+            $query .= "and pi.category_id = '". $category_id ."'";
+        $query .= " order by pi.product_id desc";
+        $query = $this->db->query($query);
         if ($query->num_rows() > 0) {
             return $query->result_array();
         }

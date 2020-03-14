@@ -253,7 +253,7 @@ class Customers extends CI_Model {
     }
 
     //Customer Previous balance adjustment
-    public function previous_balance_add($balance, $customer_id,$customer_name) {
+    public function previous_balance_add($balance, $customer_id,$customer_name = "") {
         $this->load->library('auth');
         $transaction_id = $this->auth->generator(10);
         $data = array(

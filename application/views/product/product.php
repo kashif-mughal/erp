@@ -58,20 +58,35 @@
             <div class="col-sm-12">
                 <div class="panel panel-default">
                     <div class="panel-body"> 
+                        <div class="col-sm-7">
+                            <form action="<?php echo base_url('Cproduct/product_by_search') ?>" class="form-inline" method="post" accept-charset="utf-8">
 
-                        <form action="<?php echo base_url('Cproduct/product_by_search') ?>" class="form-inline" method="post" accept-charset="utf-8">
+                                <label class="select"><?php echo display('product_name') ?>:</label>
 
-                            <label class="select"><?php echo display('product_name') ?>:</label>
+                                <select class="form-control" name="product_id" style="width: 300px;">
+                                    {all_product_list}
+                                    <option value="{product_id}">{product_name}-({product_model})</option>
+                                    {/all_product_list}
+                                </select>
 
-                            <select class="form-control" name="product_id" style="width: 300px;">
-                                {all_product_list}
-                                <option value="{product_id}">{product_name}-({product_model})</option>
-                                {/all_product_list}
-                            </select>
+                                <button type="submit" class="btn btn-primary"><?php echo display('search') ?></button>
+                            </form>		            
+                        </div>
+                        <div class="col-sm-5">
+                            <form action="<?php echo base_url('Cproduct/manage_product') ?>" class="form-inline" method="post" accept-charset="utf-8">
 
-                            <button type="submit" class="btn btn-primary"><?php echo display('search') ?></button>
+                                <label class="select">Category:</label>
 
-                        </form>		            
+                                <select class="form-control" name="category_id" style="width: 200px;">
+                                    <option value="0">All</option>
+                                    {all_categories}
+                                    <option value="{category_id}">{category_name}</option>
+                                    {/all_categories}
+                                </select>
+
+                                <button type="submit" class="btn btn-primary"><?php echo display('search') ?></button>
+                            </form> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -96,6 +111,7 @@
                                         <th><?php echo display('sl') ?></th>
                                         <th><?php echo display('product_name') ?></th>
                                         <th><?php echo display('product_model') ?></th>
+                                        <th><?php echo display('category') ?></th>
                                         <th><?php echo display('price') ?></th>
                                         <th><?php echo display('image') ?>s</th>
                                         <th style="width : 130px"><?php echo display('action') ?></th>
@@ -115,6 +131,8 @@
                                                 </a>			
                                             </td>
                                             <td><a href="<?php echo base_url() . 'Cproduct/product_details/{product_id}'; ?>">{product_model} </a></td>
+
+                                            <td><a href="<?php echo base_url() . 'Cproduct/product_details/{product_id}'; ?>">{category_name} </a></td>
                                         
                                             <td style="text-align: right;">
                                                 <?php echo (($position == 0) ? "$currency {price}" : "{price} $currency") ?>
