@@ -26,9 +26,7 @@ class Cretrun_m extends CI_Controller {
     // invoice return form
     public function invoice_return_form() {
         $invoice_id = $this->input->post('invoice_id');
-        $query = $this->db->select('invoice_id')->from('invoice')->where('invoice_id', $invoice_id)->get();
-
-
+        $query = $this->db->select('invoice_id')->from('invoice')->or_where('invoice', $invoice_id)->or_where('invoice_id', $invoice_id)->get();
         if ($query->num_rows() == 0) {
             $this->session->set_userdata(array('error_message' => display('please_input_correct_invoice_id')));
             redirect('Cretrun_m');
@@ -36,7 +34,7 @@ class Cretrun_m extends CI_Controller {
         $CI = & get_instance();
         $CI->auth->check_admin_auth();
         $CI->load->library('lreturn');
-        $content = $CI->lreturn->invoice_return_data($invoice_id);
+        $content = $CI->lreturn->invoice_return_data($query->result()[0]->invoice_id);
         $this->template->full_admin_html_view($content);
     }
 

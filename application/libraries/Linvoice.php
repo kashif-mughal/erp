@@ -214,6 +214,8 @@ class Linvoice {
 
         $CI->load->model('Web_settings');
 
+        $CI->load->model('Reports');
+
         $CI->load->library('occational');
 
 
@@ -287,6 +289,8 @@ class Linvoice {
         $CI->load->model('Invoices');
 
         $CI->load->model('Web_settings');
+
+        $CI->load->model('Reports');
 
         $CI->load->library('occational');
 
@@ -420,6 +424,8 @@ class Linvoice {
         $CI->load->model('Invoices');
 
         $CI->load->model('Web_settings');
+
+        $CI->load->model('Reports');
 
         $CI->load->library('occational');
 

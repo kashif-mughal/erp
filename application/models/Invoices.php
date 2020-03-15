@@ -224,9 +224,9 @@ class Invoices extends CI_Model {
 
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id');
 
+        $this->db->or_where('invoice', $invoice_no);
 
-
-        $this->db->where('invoice', $invoice_no);
+        $this->db->or_where('invoice_id', $invoice_no);
 
         $query = $this->db->get();
 
@@ -883,7 +883,6 @@ class Invoices extends CI_Model {
     //Retrieve invoice Edit Data
 
     public function retrieve_invoice_editdata($invoice_id) {
-
         $this->db->select('a.*,a.total_tax as taxs,b.customer_name,c.*,c.tax as total_tax,c.product_id,d.product_name,d.product_model,d.tax,d.unit');
 
         $this->db->from('invoice a');
@@ -901,7 +900,6 @@ class Invoices extends CI_Model {
 
 
         if ($query->num_rows() > 0) {
-
             return $query->result_array();
 
         }

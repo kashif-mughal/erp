@@ -228,7 +228,7 @@ function calculateSum() {
     //Total Tax
     $(".total_tax").each(function () {
         isNaN(this.value) || 0 == this.value.length || (a += parseFloat(this.value))
-    });debugger;
+    });
     $("#total_tax_ammount").val(Math.round(a));
     //Total Discount
     $(".total_discount").each(function () {

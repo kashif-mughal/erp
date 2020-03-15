@@ -65,7 +65,6 @@ class Cinvoice extends CI_Controller {
     //invoice Update Form
 
     public function invoice_update_form($invoice_id) {
-
         $CI = & get_instance();
 
         $CI->auth->check_admin_auth();
@@ -276,7 +275,6 @@ class Cinvoice extends CI_Controller {
         #pagination ends
 
         #  
-
         $content = $this->linvoice->invoice_search($customer_id, $links, $config["per_page"], $page, "invoice/invoice", "Manage Invoice");
 
         $this->template->full_admin_html_view($content);
@@ -330,7 +328,6 @@ class Cinvoice extends CI_Controller {
         #pagination starts
 
         #
-
         $config["base_url"] = base_url('Cinvoice/date_to_date_invoice/');
 
         $config["total_rows"] = $this->Invoices->invoice_list_date_to_date_count($from_date, $to_date);
@@ -388,7 +385,7 @@ class Cinvoice extends CI_Controller {
         #pagination ends
 
         #  
-
+        
 
         $content = $this->linvoice->invoice_list_date_to_date($from_date, $to_date, $links, $config["per_page"], $page);
 

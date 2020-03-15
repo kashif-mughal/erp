@@ -115,7 +115,7 @@
 										</td>
 
 										<td>{final_date}</td>
-										<td style="text-align: right;"><?php echo (($position==0)?"$currency {net_total_amount}":"{net_total_amount} $currency") ?></td>
+										<td style="text-align: right;"><?php echo (($position==0)?"$currency {total_amount}":"{total_amount} $currency") ?></td>
 										<td>
 											<center>
 												<?php echo form_open()?>
