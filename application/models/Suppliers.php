@@ -32,10 +32,10 @@ class Suppliers extends CI_Model {
             CAST(sum(supplier_transaction_summary.amount) AS DECIMAL(16,2)) as supplier_balance
             ');
         $this->db->from('supplier_information');
-        $this->db->join('supplier_transaction_summary', 'supplier_transaction_summary.supplier_id= supplier_information.supplier_id');
+        $this->db->join('supplier_transaction_summary', 'supplier_transaction_summary.supplier_id= supplier_information.supplier_id', 'left');
         $this->db->group_by('supplier_transaction_summary.supplier_id');
         //$this->db->order_by('supplier_information.create_date', 'ASC');
-        $this->db->limit($per_page, $page);
+        $this->db->limit(1000, $page);
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {

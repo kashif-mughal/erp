@@ -414,10 +414,11 @@ class Payment extends CI_Model {
 
     // date to date query 
     public function date_summary_query($per_page, $page) {
-         
         $startdate = $this->input->get("from_date");
         $enddate = $this->input->get("to_date");
-
+        $userType = $this->input->get("u_type");
+        $userName = $this->input->get("u_name");
+        
         if($startdate =="")
         {
             $startdate = date("Y-m-01");
@@ -428,26 +429,24 @@ class Payment extends CI_Model {
     LEFT JOIN supplier_information si ON si.supplier_id = sl.supplier_id
 	LEFT JOIN customer_ledger cl ON cl.transaction_id = t.transaction_id 
     LEFT JOIN customer_information ci ON ci.customer_id = cl.customer_id  where date_of_transection >='$startdate' and date_of_transection <='$enddate'";
+
+        if($userName){
+            $sql .= " AND ci.customer_name = '$userName' OR si.supplier_name = '$userName'";
+        }
+        if($userType > 0 && $userType < 6){
+            // transection_category == 1 =>  "supplier";
+            // transection_category == 2 =>  "customer";
+            // transection_category == 3 =>  "Office";
+            // transection_category == 4 =>  "Salary";
+            // transection_category == 5 =>  "Loan";
+
+            $sql .= " AND transection_category = $userType";
+        }
 //        echo $sql;        die();
+
         $query = $this->db->query($sql);
+        //echo '<pre>';print_r($query->result_array());die;
         return $query->result_array();
-//        $this->db->select('
-//     i.*, i.amount as debit,
-//      i.pay_amount as credit,q.*,r.*,s.*,a.*');
-//        $this->db->from('transection i');
-//        $this->db->join('view_customer_transection q', 'i.transaction_id=q.transaction_id', 'left');
-//        $this->db->join('view_supplier_transection r', 'i.transaction_id=r.transaction_id', 'left');
-//        $this->db->join('view_person_transection s', 'i.transaction_id=s.transaction_id', 'left');
-//        $this->db->join('account_2 a', 'i.transection_category=a.parent_id');
-//
-//        $this->db->order_by('i.date_of_transection', "desc");
-//        $this->db->group_by('i.transaction_id');
-//        $this->db->limit($per_page, $page);
-//        $query = $this->db->get();
-//        if ($query->num_rows() > 0) {
-//            return $query->result_array();
-//        }
-//        return false;
     }
 
     public function date_summary_query11($per_page, $page) {
@@ -651,7 +650,8 @@ class Payment extends CI_Model {
 
         $startdate = $this->input->get("from_date");
         $enddate = $this->input->get("to_date");
-
+        $userType = $this->input->get("u_type");
+        $userName = $this->input->get("u_name");
         if($startdate =="")
         {
             $startdate = date("Y-m-01");
@@ -669,6 +669,18 @@ class Payment extends CI_Model {
         $this->db->where('i.date_of_transection >=',"$startdate");
         $this->db->where('i.date_of_transection <=',"$enddate");
         $this->db->where('i.voucher_id !=', '');
+        if($userName){
+            $this->db->where("f.customer_name = '$userName' OR h.supplier_name = '$userName'");
+        }
+        if($userType > 0 && $userType < 6){
+            // transection_category == 1 =>  "supplier";
+            // transection_category == 2 =>  "customer";
+            // transection_category == 3 =>  "Office";
+            // transection_category == 4 =>  "Salary";
+            // transection_category == 5 =>  "Loan";
+
+            $this->db->where('transection_category =', $userType);
+        }
         $this->db->group_by('i.voucher_id');
 
 

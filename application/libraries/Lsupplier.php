@@ -68,7 +68,6 @@ class Lsupplier {
 
         //$suppliers_list = $CI->Suppliers->supplier_list_pag($per_page, $page);
         $suppliers_list = $CI->Suppliers->supplier_list_balance($per_page, $page);
-
         $i = 0;
 
         if (!empty($suppliers_list)) {

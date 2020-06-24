@@ -164,6 +164,8 @@ class Invoices extends CI_Model {
 
         $this->db->from('invoice a');
 
+        $this->db->where('a.status !=', 0);
+
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id');
 
         $this->db->order_by('a.invoice', 'desc');
@@ -895,6 +897,8 @@ class Invoices extends CI_Model {
 
         $this->db->where('a.invoice_id', $invoice_id);
 
+        $this->db->where('a.status !=', 0);
+
         $query = $this->db->get();
 
 
@@ -915,7 +919,7 @@ class Invoices extends CI_Model {
     public function update_invoice() {
 
         $invoice_id = $this->input->post('invoice_id');
-
+        //echo '<pre>';print_r($this->input->post());die;
         $ab = $this->db->select('transaction_id')->from('customer_ledger')->where('invoice_no', $invoice_id)->get()->result();
 
         foreach ($ab as $ab) {
@@ -923,7 +927,6 @@ class Invoices extends CI_Model {
             $tran = $ab->transaction_id;
 
         }
-
 
 
         $this->db->where('transaction_id', $tran);
@@ -935,7 +938,6 @@ class Invoices extends CI_Model {
         $this->db->where('transaction_id', $tran);
 
         $this->db->delete('transection');
-
 
 
         $datarcpt = array(
@@ -957,7 +959,6 @@ class Invoices extends CI_Model {
             'status' => 1
 
         );
-
 
         $data = array(
 
@@ -982,7 +983,6 @@ class Invoices extends CI_Model {
             'vehicle' => $this->input->post('vehicle')
 
         );
-
         $data2 = array(
 
             'transaction_id' => $tran,
@@ -1002,9 +1002,7 @@ class Invoices extends CI_Model {
             'status' => 1
 
         );
-
-
-
+        
         $data3 = array(
 
             'transaction_id' => $tran,
@@ -1024,8 +1022,6 @@ class Invoices extends CI_Model {
             'description' => 'ITP'
 
         );
-
-
 
 
 
@@ -1050,7 +1046,6 @@ class Invoices extends CI_Model {
             $this->db->insert('transection', $data3);
 
         }
-
 
 
         // Inserting for Accounts adjustment.
@@ -1084,11 +1079,10 @@ class Invoices extends CI_Model {
         $product_uuid = $this->input->post('product_uuid');
 
         //$tax_amount 	= $this->input->post('tax');
-
+//print_r($invoice_id);die;
         $this->db->where('invoice_id', $invoice_id);
 
         $this->db->delete('invoice_details');
-
 
 
         for ($i = 0, $n = count($p_id); $i < $n; $i++) {
@@ -1268,6 +1262,8 @@ class Invoices extends CI_Model {
 
         $this->db->where('a.invoice_id', $invoice_id);
 
+        $this->db->where('a.status !=', 0);
+
         $this->db->where('c.quantity >', 0);
 
         $query = $this->db->get();
@@ -1344,15 +1340,21 @@ class Invoices extends CI_Model {
 
         //Delete Invoice table
 
+        $data = array(
+            'status' => 0
+        );
         $this->db->where('invoice_id', $invoice_id);
-
-        $this->db->delete('invoice');
-
-        //Delete invoice_details table
+        $this->db->update('invoice',$data);
 
         $this->db->where('invoice_id', $invoice_id);
+        $this->db->update('invoice_details',$data);
 
-        $this->db->delete('invoice_details');
+
+
+        // $this->db->where('invoice_id', $invoice_id);
+        // $this->db->delete('invoice');
+        // $this->db->where('invoice_id', $invoice_id);
+        // $this->db->delete('invoice_details');
 
         return true;
 

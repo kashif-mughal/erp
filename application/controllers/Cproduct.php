@@ -241,7 +241,7 @@ class Cproduct extends CI_Controller {
     //Product Update Form
 
     public function product_update_form($product_id) {
-
+        $product_id = urldecode($product_id);
         $this->db->select('*');
         $this->db->from('product_information');
         $this->db->where('sub_product', $product_id);
@@ -1262,7 +1262,7 @@ class Cproduct extends CI_Controller {
     }
 
     public function item_update_form($product_id){
-
+        $product_id = urldecode($product_id);
         $CI = & get_instance();
         $CI->load->model('Products');
         $CI->load->model('Suppliers');

@@ -200,10 +200,7 @@
                             <label for="Transection_mood" class="col-sm-2 col-form-label"><?php echo display('transaction_mood') ?></label>
                             <div class="col-sm-4">
                                <select onchange="bank_info_show(this)" name="payment_type" id="payment_type" class="form-control">
-                                    <option value="1"> <?php echo display('cash') ?> </option>
-                                    <option value="2"> <?php echo display('cheque') ?> </option>
-                                    <option value="3"> Token </option>
-                                    <option value="4"> Discount </option>
+                                    
                                 </select>
                             </div>
 
@@ -381,11 +378,18 @@ $('#weekSW-1').click(function () {
 <script>
 function myFunction() {
     var x = document.getElementById("selId").value;
+    var optionValues = `<option value="1"> Cash </option>
+                                    <option value="2"> Cheque </option>`;
     if(x==1){x='Supplier'}
-        if(x==2){x='Customer'}
+        if(x==2){
+            x='Customer';
+            optionValues += `<option value="3"> Token </option>
+                                    <option value="4"> Discount </option>`;
+        }
              if(x==3){x='Office'}
                  if(x==4){x='Loan'}
-    document.getElementById("demo").innerHTML = "Select: " + x +" Name";
+    document.getElementById("demo").innerHTML = "Select: " + x +" Name";debugger;
+    document.getElementById("payment_type").innerHTML = optionValues;
 }
 
   var count = 1;

@@ -64,32 +64,68 @@
             </div>
         </div>
         <div class="row">
+            <style type="text/css">
+                .select2{
+                    width: 100% !important;
+                }
+            </style>
             <div class="col-sm-12">
                 <div class="panel panel-default">
                     <div class="panel-body"> 
-                        <form action="<?php echo base_url('Cpayment/transaction_date_to_date') ?>" class="form-inline" method="get" accept-charset="utf-8">
+                        <form action="<?php echo base_url('Cpayment/manage_payment') ?>" class="form-inline" method="get" accept-charset="utf-8">
                             <?php date_default_timezone_set("Asia/Karachi");
                             $today = date('Y-m-d'); ?>
-                            <div class="form-group">
-                                <label class="" for="from_date"><?php echo display('start_date') ?></label>
-                                <input type="text" name="from_date" class="form-control datepicker" id="from_date" value="<?=$_GET['from_date']?>" placeholder="<?php echo display('start_date') ?>" >
+                            <div class="row">
+                                <div class="col-sm-2 col-form-label">
+                                    <label class="" for="from_date"><?php echo display('start_date') ?></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="text" autocomplete="off" style="width: 100%;" name="from_date" class="form-control datepicker" id="from_date" value="<?=$_GET['from_date']?>" placeholder="<?php echo display('start_date') ?>" >
+                                </div>
+                                <div class="col-sm-2 col-form-label">
+                                    <label class="" for="to_date"><?php echo display('end_date') ?></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="text" autocomplete="off" style="width: 100%;" name="to_date" class="form-control datepicker" id="to_date" placeholder="<?php echo display('end_date') ?>" value="<?php echo $_GET['to_date'] ?>">
+                                </div>
                             </div> 
-
-                            <div class="form-group">
-                                <label class="" for="to_date"><?php echo display('end_date') ?></label>
-                                <input type="text" name="to_date" class="form-control datepicker" id="to_date" placeholder="<?php echo display('end_date') ?>" value="<?php echo $_GET['to_date'] ?>">
-                            </div> 
-
-                            <div class="form-group">
-                                <label class="" for="to_date"><?php echo display('payment') ?></label>
-                               <select id='payment_type' name='payment_type' class='form-control'>
-                                   <option value='ALL' <?php if($_GET['payment_type']=="ALL")echo "SELECTED"; ?>>ALL</option>
-                                   <option value='paid' <?php if($_GET['payment_type']=="paid")echo "SELECTED"; ?>>Paid</option>
-                                   <option value='receipt' <?php if($_GET['payment_type']=="receipt")echo "SELECTED"; ?>>Receipt</option>
-                               </select>
+                            <div class="row">
+                                <div class="col-sm-2 col-form-label">
+                                    <label for="customer_name">User Type </label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select class='form-control' name="u_type" tabindex="3"  id="u_type">
+                                        <option value="">--Select User Type--</option>
+                                            <option value="1">Suplier</option>
+                                            <option value="2">Customer</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2 col-form-label">
+                                    <label for="customer_name">Name </label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select class='form-control' name="u_name" tabindex="4"  id="u_name">
+                                        <option value="">--Select Name--</option>
+                                        {all_supplier_customers_name}
+                                            <option value="{name}">{name}</option>
+                                        {/all_supplier_customers_name}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2 col-form-label">
+                                    <label class="" for="to_date"><?php echo display('payment') ?></label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <select id='payment_type' name='payment_type' class='form-control'>
+                                       <option value='ALL' <?php if($_GET['payment_type']=="ALL")echo "SELECTED"; ?>>ALL</option>
+                                       <option value='paid' <?php if($_GET['payment_type']=="paid")echo "SELECTED"; ?>>Paid</option>
+                                       <option value='receipt' <?php if($_GET['payment_type']=="receipt")echo "SELECTED"; ?>>Receipt</option>
+                                   </select>
+                               </div>
                             </div>  
 
-                            <button type="submit" class="btn btn-success"><?php echo display('search') ?></button>
+                            <button type="submit" style="float: right;margin-top: 20px;width: 150px;" class="btn btn-success"><?php echo display('search') ?></button>
 
                         </form>	
                     </div>

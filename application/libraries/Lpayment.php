@@ -117,6 +117,9 @@ class Lpayment {
         $CI->load->model('Reports');
         $CI->load->library('occational');
 
+        $CI->load->model('Purchases');
+        $all_supplier_customers_name = $CI->Purchases->select_all_supplier_and_customer_name_list();
+
         $ledger = $CI->Payment->date_summary_query($per_page, $page);
 //        echo '<pre>';        print_r($ledger);die();
         $category = $CI->Payment->tran_cat_list();
@@ -126,24 +129,6 @@ class Lpayment {
         $total_debit = 0;
         $total_balance = 0;
         $i = 0;
-//        if (!empty($ledger)) {
-//            foreach ($ledger as $k => $v) {
-//                $i++;
-//                $ledger[$k]['sl'] = $i + $CI->uri->segment(3);
-//                $ledger[$k]['date_of_transection'] = $CI->occational->dateConvert($ledger[$k]['date_of_transection']);
-//                $ledger[$k]['balance'] = (is_numeric($ledger[$k]['debit']) - is_numeric($ledger[$k]['credit'])) + $balance;
-//                $balance = $ledger[$k]['balance'];
-//
-//                $ledger[$k]['subtotalDebit'] = $total_debit + is_numeric($ledger[$k]['debit']);
-//                $total_debit = $ledger[$k]['subtotalDebit'];
-//
-//                $ledger[$k]['subtotalCredit'] = $total_credit + $ledger[$k]['credit'];
-//                $total_credit = $ledger[$k]['subtotalCredit'];
-//
-//                $ledger[$k]['subtotalBalance'] = $total_balance + $ledger[$k]['balance'];
-//                $total_balance = $ledger[$k]['subtotalBalance'];
-//            }
-//        }
 
         $currency_details = $CI->Web_settings->retrieve_setting_editdata();
         $company_info = $CI->Reports->retrieve_company();
@@ -159,6 +144,7 @@ class Lpayment {
             'subtotalBalance' => number_format($total_balance, 2, '.', ','),
             'links' => $links,
             'company_info' => $company_info,
+            'all_supplier_customers_name' => $all_supplier_customers_name
         );
         $chapterList = $CI->parser->parse('payment/payment', $data, true);
         return $chapterList;
@@ -629,8 +615,12 @@ class Lpayment {
         $CI->load->model('Reports');
         $CI->load->library('occational');
 
+
+        $CI->load->model('Purchases');
+        $all_supplier_customers_name = $CI->Purchases->select_all_supplier_and_customer_name_list();
+        
         $ledger = $CI->Payment->voucher_list($per_page, $page);
-      // echo "<pre>$per_page, $page";        print_r($ledger);die();
+
         $category = $CI->Payment->tran_cat_list();
 
         $balance = 0;
@@ -653,6 +643,7 @@ class Lpayment {
             'subtotalBalance' => number_format($total_balance, 2, '.', ','),
             'links' => $links,
             'company_info' => $company_info,
+            'all_supplier_customers_name' => $all_supplier_customers_name
         );
         $chapterList = $CI->parser->parse('payment/voucher', $data, true);
         return $chapterList;

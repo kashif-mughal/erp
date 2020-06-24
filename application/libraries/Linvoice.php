@@ -638,6 +638,10 @@ class Linvoice {
 
         $invoice_detail = $CI->Invoices->retrieve_invoice_editdata($invoice_id);
 
+        if(!$invoice_detail){
+            redirect('Cinvoice/manage_invoice/');
+        }
+
         $i = 0;
 
         if (!empty($invoice_detail)) {
@@ -718,11 +722,7 @@ class Linvoice {
         $CI->load->library('occational');
 
         $invoice_detail = $CI->Invoices->retrieve_invoice_html_data($invoice_id);
-
-
-
-
-
+        
         $subTotal_quantity = 0;
 
         $subTotal_cartoon = 0;

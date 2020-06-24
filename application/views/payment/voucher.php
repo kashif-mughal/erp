@@ -69,6 +69,11 @@
                 </div>
             </div>
         </div>
+        <style type="text/css">
+            .select2{
+                width: 100% !important;
+            }
+        </style>
         <div class="row">
             <div class="col-sm-12">
                 <div class="panel panel-default">
@@ -76,17 +81,45 @@
                         <form action="<?php echo base_url('Cpayment/manage_voucher') ?>" class="form-inline" method="get" accept-charset="utf-8">
                             <?php date_default_timezone_set("Asia/karachi");
                             $today = date('Y-m-d'); ?>
-                            <div class="form-group">
-                                <label class="" for="from_date"><?php echo display('start_date') ?></label>
-                                <input type="text" name="from_date" class="form-control datepicker" id="from_date" value="<?php echo $_GET['from_date'] ?>" placeholder="<?php echo display('start_date') ?>" >
-                            </div> 
+                            <div class="row">
+                                <div class="col-sm-2 col-form-label">
+                                    <label class="" for="from_date"><?php echo display('start_date') ?></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="text" autocomplete="off" style="width: 100%;" tabindex="1" name="from_date" class="form-control datepicker" id="from_date" value="<?php echo $_GET['from_date'] ?>" placeholder="<?php echo display('start_date') ?>" >
+                                </div> 
 
-                            <div class="form-group"> 
-                                <label class="" for="to_date"><?php echo display('end_date') ?></label>
-                                <input type="text" name="to_date" class="form-control datepicker" id="to_date" placeholder="<?php echo display('end_date') ?>" value="<?php echo $_GET['to_date'] ?>">
-                            </div>  
-
-                            <button type="submit" class="btn btn-success"><?php echo display('search') ?></button>
+                                <div class="col-sm-2 col-form-label">
+                                    <label class="" for="to_date"><?php echo display('end_date') ?></label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="text" autocomplete="off" style="width: 100%;" tabindex="2" name="to_date" class="form-control datepicker" id="to_date" placeholder="<?php echo display('end_date') ?>" value="<?php echo $_GET['to_date'] ?>">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2 col-form-label">
+                                    <label for="customer_name">User Type </label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select class='form-control' name="u_type" tabindex="3"  id="u_type">
+                                        <option value="">--Select User Type--</option>
+                                            <option value="1">Suplier</option>
+                                            <option value="2">Customer</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2 col-form-label">
+                                    <label for="customer_name">Name </label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select class='form-control' name="u_name" tabindex="4"  id="u_name">
+                                        <option value="">--Select Name--</option>
+                                        {all_supplier_customers_name}
+                                            <option value="{name}">{name}</option>
+                                        {/all_supplier_customers_name}
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" style="float: right;margin-top: 20px;width: 150px;" class="btn btn-success"><?php echo display('search') ?></button>
 
                         </form> 
                     </div>

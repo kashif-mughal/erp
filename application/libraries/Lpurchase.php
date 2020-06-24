@@ -17,7 +17,7 @@ class Lpurchase {
 		$CI->load->model('Web_settings');
 
 		$all_supplier = $CI->Purchases->select_all_supplier();
-
+		
 		$currency_details = $CI->Web_settings->retrieve_setting_editdata();
 
 

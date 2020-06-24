@@ -206,6 +206,34 @@ class Purchases extends CI_Model {
 
     }
 
+    public function select_all_supplier_and_customer_name_list() {
+
+        $query = $this->db->query("SELECT s.supplier_name FROM supplier_information s");
+        $names = array();
+        if ($query->num_rows() > 0) {
+            //return $query->result_array();
+            $elems = $query->result_array();
+            for ($i=0; $i < count($elems); $i++) { 
+                $temp = new stdClass();
+                $temp->name = $elems[$i]["supplier_name"]; 
+                if(!in_array($temp, $names))
+                    array_push($names, $temp);
+            }
+        }
+        $query2 = $this->db->query("SELECT c.customer_name FROM customer_information c");
+        if ($query2->num_rows() > 0) {
+            $elems = $query2->result_array();
+            for ($i=0; $i < count($elems); $i++) { 
+                $temp = new stdClass();
+                $temp->name = $elems[$i]["customer_name"]; 
+                if(!in_array($temp, $names))
+                    array_push($names, $temp);
+            }
+        }
+        return $names;
+
+    }
+
 
 
     //purchase Search  List

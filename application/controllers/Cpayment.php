@@ -1028,7 +1028,6 @@ class Cpayment extends CI_Controller {
         #  
         //$content = $this->lpayment->payment_list($links, $config["per_page"], $page);
         $content = $this->lpayment->voucher_list($links, $config["per_page"], $page);
-
         $this->template->full_admin_html_view($content);
     }
 

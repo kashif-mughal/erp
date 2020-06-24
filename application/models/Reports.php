@@ -532,11 +532,8 @@ class reports extends CI_Model {
             ORDER BY
                 month ASC
         ";
-        print_r($queryText);die;
         $query1 = $this->db->query($queryText)->result_array();
 
-        echo '<pre>';
-        print_r($query1);die();
         return $query1;
     }
 

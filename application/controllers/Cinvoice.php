@@ -663,14 +663,32 @@ class Cinvoice extends CI_Controller {
 
         $invoice_id = $_POST['invoice_id'];
 
+        $this->db->select("invoice");
+        $this->db->from("sale_order");
+        $this->db->where("invoice_id", $invoice_id);
+
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            $invoice_id =  $query->result_array();
+        }
+
+
+        $invoice_id = $invoice_id[0]["invoice"];
+
+        $data = array(
+            'status' => 0
+        );
+        $this->db->where('invoice', $invoice_id);
+        $this->db->update('sale_order',$data);
+
         $this->db->where('invoice_id', $invoice_id);
+        $this->db->update('sale_order_details',$data);
 
-        $this->db->delete('sale_order');
 
-        $this->db->where('invoice_id', $invoice_id);
-
-        $this->db->delete('sale_order_details');
-
+        // $this->db->where('invoice', $invoice_id);
+        // $this->db->delete('sale_order');
+        // $this->db->where('invoice_id', $invoice_id);
+        // $this->db->delete('sale_order_details');
     }
 
 
@@ -823,7 +841,6 @@ class Cinvoice extends CI_Controller {
         $CI->load->model('Invoices');
         $CI->load->model('Customers');
         
-
         $invoice_id = $CI->Invoices->generator(10);
         $invoice_id = strtoupper($invoice_id);
 
@@ -831,7 +848,6 @@ class Cinvoice extends CI_Controller {
 
         $quantity = $this->input->post('product_quantity');
        // $available_quantity = $this->input->post('available_quantity');
-
         $cartoon = $this->input->post('cartoon');
 
 
@@ -941,7 +957,6 @@ class Cinvoice extends CI_Controller {
         $discount_per = $this->input->post('discount');
         $tax_amount = $this->input->post('tax');
         $all_product_ids = $this->input->post('product_uuid');
-        
 //die("here....");
         for ($i = 0, $n = count($p_id); $i < $n; $i++) {
 
@@ -1031,6 +1046,10 @@ class Cinvoice extends CI_Controller {
 
         $invoice_detail = $CI->Invoices->retrieve_invoice_html_data($invoice_id);
 
+        if(!$invoice_detail)
+        {
+            redirect('Cinvoice/manage_invoice/');
+        }
 
         $subTotal_quantity = 0;
 
@@ -1217,7 +1236,8 @@ class Cinvoice extends CI_Controller {
         }
         else{
         $this->db->where('a.date >=',$startdate);
-        $this->db->where('a.date <=',$enddate); 
+        $this->db->where('a.date <=',$enddate);
+        $this->db->where('a.status !=',0);
     }
          $query = $this->db->get();
 
@@ -1268,9 +1288,13 @@ class Cinvoice extends CI_Controller {
 
         $CI->load->library('occational');
 
+        $CI->load->library('Customers');
+
         //$invoice_detail = $CI->Invoices->retrieve_invoice_html_data($invoice_id);
 
         $this->db->select('a.total_tax,
+
+                        (a.total_amount + a.total_discount) sub_total_amount,
 
                         a.*,
 
@@ -1308,6 +1332,8 @@ class Cinvoice extends CI_Controller {
 
         $this->db->where('a.invoice_id', $invoice);
 
+        $this->db->where('a.status', 1);
+
         $this->db->where('c.quantity >', 0);
 
         $query = $this->db->get();
@@ -1317,7 +1343,9 @@ class Cinvoice extends CI_Controller {
             $invoice_detail =  $query->result_array();
 
         }
-
+        else{
+            redirect('Cinvoice/manage_sale_order/');
+        }        
         $subTotal_quantity = 0;
 
         $subTotal_cartoon = 0;
@@ -1359,40 +1387,87 @@ class Cinvoice extends CI_Controller {
         $company_info = $CI->Invoices->retrieve_company();
         $categoriesGroup = array();
 
+
         // foreach ($invoice_detail as $k => $v) {
-        //     if(is_null($categoriesGroup[$invoice_detail[$k]['category_name']])){
-        //         $categoriesGroup[$invoice_detail[$k]['category_name']] = array();
+        //     if($invoice_detail[$k]['special']){
+        //         $product_parts = explode("-", $invoice_detail[$k]['product_name']);
+        //         $product_name =  $product_parts[0];
+        //         $product_name .= " Special Shade";
+        //         if(is_null($categoriesGroup[$product_name])){
+        //             $categoriesGroup[$product_name] = array();
+        //         }
+        //         if(is_null($categoriesGroup[$product_name][$v['unit']])){
+        //             $categoriesGroup[$product_name][$v['unit']] = array();
+        //         }
+        //         array_push($categoriesGroup[$product_name][$v['unit']], $v);
         //     }
-        //     if(is_null($categoriesGroup[$invoice_detail[$k]['category_name']][$v['unit']])){
-        //         $categoriesGroup[$invoice_detail[$k]['category_name']][$v['unit']] = array();
+        //     else{
+        //         $product_parts = explode("-", $invoice_detail[$k]['product_name']);
+        //         $product_name =  $product_parts[0];
+        //         if(is_null($categoriesGroup[$product_name])){
+        //             $categoriesGroup[$product_name] = array();
+        //         }
+        //         if(is_null($categoriesGroup[$product_name][$v['unit']])){
+        //             $categoriesGroup[$product_name][$v['unit']] = array();
+        //         }
+        //         array_push($categoriesGroup[$product_name][$v['unit']], $v);
         //     }
-        //     array_push($categoriesGroup[$invoice_detail[$k]['category_name']][$v['unit']], $v);
         // }
+
+
+
         foreach ($invoice_detail as $k => $v) {
+            $product_parts = explode("-", $invoice_detail[$k]['product_name']);
             if($invoice_detail[$k]['special']){
-                $product_parts = explode("-", $invoice_detail[$k]['product_name']);
                 $product_name =  $product_parts[0];
                 $product_name .= " Special Shade";
                 if(is_null($categoriesGroup[$product_name])){
                     $categoriesGroup[$product_name] = array();
                 }
-                if(is_null($categoriesGroup[$product_name][$v['unit']])){
-                    $categoriesGroup[$product_name][$v['unit']] = array();
+
+                $product_shade = substr($invoice_detail[$k]['product_id'], 1, strlen($invoice_detail[$k]['product_id']));
+                $product_shade .= " ";
+                $product_shade .= substr($product_parts[1], 0, strpos($product_parts[1], '('));
+
+                if(is_null($categoriesGroup[$product_name][$product_shade])){
+                    $categoriesGroup[$product_name][$product_shade] = $v;
+                    $categoriesGroup[$product_name][$product_shade]['dQuantity'] = 0;
+                    $categoriesGroup[$product_name][$product_shade]['gQuantity'] = 0;
+                    $categoriesGroup[$product_name][$product_shade]['qQuantity'] = 0;
                 }
-                array_push($categoriesGroup[$product_name][$v['unit']], $v);
+                if($v['unit'] == 'Drum')
+                    $categoriesGroup[$product_name][$product_shade]['dQuantity'] += $v['quantity'];
+                if($v['unit'] == 'Gallon')
+                    $categoriesGroup[$product_name][$product_shade]['gQuantity'] += $v['quantity'];
+                if($v['unit'] == 'Quarter')
+                    $categoriesGroup[$product_name][$product_shade]['qQuantity'] += $v['quantity'];
             }
             else{
-                $product_parts = explode("-", $invoice_detail[$k]['product_name']);
                 $product_name =  $product_parts[0];
                 if(is_null($categoriesGroup[$product_name])){
                     $categoriesGroup[$product_name] = array();
                 }
-                if(is_null($categoriesGroup[$product_name][$v['unit']])){
-                    $categoriesGroup[$product_name][$v['unit']] = array();
+                $product_shade = substr($invoice_detail[$k]['product_id'], 1, strlen($invoice_detail[$k]['product_id']));
+                $product_shade .= " ";
+                $product_shade .= substr($product_parts[1], 0, strpos($product_parts[1], '('));
+
+                if(is_null($categoriesGroup[$product_name][$product_shade])){
+                    $categoriesGroup[$product_name][$product_shade] = $v;
+                    $categoriesGroup[$product_name][$product_shade]['dQuantity'] = 0;
+                    $categoriesGroup[$product_name][$product_shade]['gQuantity'] = 0;
+                    $categoriesGroup[$product_name][$product_shade]['qQuantity'] = 0;
                 }
-                array_push($categoriesGroup[$product_name][$v['unit']], $v);
+                if($v['unit'] == 'Drum')
+                    $categoriesGroup[$product_name][$product_shade]['dQuantity'] += $v['quantity'];
+                if($v['unit'] == 'Gallon')
+                    $categoriesGroup[$product_name][$product_shade]['gQuantity'] += $v['quantity'];
+                if($v['unit'] == 'Quarter')
+                    $categoriesGroup[$product_name][$product_shade]['qQuantity'] += $v['quantity'];
             }
         }
+
+        $customers_balance = $CI->Customers->customer_balance($invoice_detail[0]['customer_id']);
+        $customers_balance = $customers_balance[0]["customer_balance"];
         $data = array(
 
             'title' => display('invoice_details'),
@@ -1401,9 +1476,13 @@ class Cinvoice extends CI_Controller {
 
             'invoice_no' => $invoice_detail[0]['invoice'],
 
+            'credit_limit' => empty($invoice_detail[0]['credit_limit']) ? 0 : $invoice_detail[0]['credit_limit'],
+
             'customer_name' => $invoice_detail[0]['customer_name'],
 
             'customer_address' => $invoice_detail[0]['customer_address'],
+
+            'customer_balance' => $customers_balance,
 
             'customer_mobile' => empty($invoice_detail[0]['customer_mobile']) ? "N/A" : $invoice_detail[0]['customer_mobile'],
 
@@ -1441,7 +1520,9 @@ class Cinvoice extends CI_Controller {
 
             'discount_type' => $currency_details[0]['discount_type'],
 
-            'content' => 'invoice/sale_order_html'
+            'content' => 'invoice/sale_order_html',
+            
+            'salesman' => empty($invoice_detail[0]['salesman']) ? "N/A" : $invoice_detail[0]['salesman']
 
         );
         // echo '<pre>';
