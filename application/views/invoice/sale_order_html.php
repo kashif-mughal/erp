@@ -154,7 +154,7 @@ $Web_settings = $CI->Web_settings->retrieve_setting_editdata();
                                             if(!isset($v2))
                                                 continue;
                                             foreach ($v2 as $k3 => $v3) {?>
-                                                <?=$total_amount = $v3['total_amount']?>
+                                                <?php $total_amount = $v3['total_amount'];?>
                                                 <tr>
                                                     <td class="text-center"><?=++$i;?></td>
                                                     <td class="text-left header"><?=$k3?></td>

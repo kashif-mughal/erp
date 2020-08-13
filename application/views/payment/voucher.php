@@ -154,6 +154,7 @@
                                     <thead>
                                         <tr>
                                             <th><?php echo display('sl') ?></th>
+                                            <th class="text-center"><?php echo display('date') ?></th>
                                             <th class="text-center"><?php echo display('name') ?></th>
                                             <th class="text-center"><?php echo display('account_name') ?></th>
                                             <th class="text-center"><?php echo display('receipt_amount') ?></th>
@@ -176,6 +177,7 @@
                                                 ?>
                                                 <tr>
                                                     <td><?php echo $sl; ?></td>
+                                                    <td><?php echo $single['date_of_transection']?></td>
                                                     <td><?php
                                                         if ($single['supplier_name']) {
                                                             echo $single['supplier_name'];
@@ -237,6 +239,7 @@
 
                                     <tfoot>
                                         <tr  align="right">
+                                            <td></td>
                                             <td colspan="3"  align="right"><b>Total:</b></td>
                                             <td align="right"><b>
                                                     <?php

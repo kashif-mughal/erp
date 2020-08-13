@@ -431,7 +431,7 @@ class Payment extends CI_Model {
     LEFT JOIN customer_information ci ON ci.customer_id = cl.customer_id  where date_of_transection >='$startdate' and date_of_transection <='$enddate'";
 
         if($userName){
-            $sql .= " AND ci.customer_name = '$userName' OR si.supplier_name = '$userName'";
+            $sql .= " AND (ci.customer_name = '$userName' OR si.supplier_name = '$userName')";
         }
         if($userType > 0 && $userType < 6){
             // transection_category == 1 =>  "supplier";
@@ -443,7 +443,7 @@ class Payment extends CI_Model {
             $sql .= " AND transection_category = $userType";
         }
 //        echo $sql;        die();
-
+//print_r($sql);die;
         $query = $this->db->query($sql);
         //echo '<pre>';print_r($query->result_array());die;
         return $query->result_array();
@@ -670,7 +670,7 @@ class Payment extends CI_Model {
         $this->db->where('i.date_of_transection <=',"$enddate");
         $this->db->where('i.voucher_id !=', '');
         if($userName){
-            $this->db->where("f.customer_name = '$userName' OR h.supplier_name = '$userName'");
+            $this->db->where("(f.customer_name = '$userName' OR h.supplier_name = '$userName')");
         }
         if($userType > 0 && $userType < 6){
             // transection_category == 1 =>  "supplier";
